@@ -1,0 +1,181 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.BAL\\EcommerceSystem.BAL.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.BAL\\EcommerceSystem.BAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.BAL\\EcommerceSystem.BAL.csproj",
+        "projectName": "EcommerceSystem.BAL",
+        "projectPath": "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.BAL\\EcommerceSystem.BAL.csproj",
+        "packagesPath": "C:\\Users\\huy.huynhducquang\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.BAL\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\huy.huynhducquang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.DAL\\EcommerceSystem.DAL.csproj": {
+                "projectPath": "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.DAL\\EcommerceSystem.DAL.csproj"
+              },
+              "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.Domain\\EcommerceSystem.Domain.csproj": {
+                "projectPath": "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.Domain\\EcommerceSystem.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.DAL\\EcommerceSystem.DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.DAL\\EcommerceSystem.DAL.csproj",
+        "projectName": "EcommerceSystem.DAL",
+        "projectPath": "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.DAL\\EcommerceSystem.DAL.csproj",
+        "packagesPath": "C:\\Users\\huy.huynhducquang\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.DAL\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\huy.huynhducquang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.Domain\\EcommerceSystem.Domain.csproj": {
+                "projectPath": "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.Domain\\EcommerceSystem.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.Domain\\EcommerceSystem.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.Domain\\EcommerceSystem.Domain.csproj",
+        "projectName": "EcommerceSystem.Domain",
+        "projectPath": "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.Domain\\EcommerceSystem.Domain.csproj",
+        "packagesPath": "C:\\Users\\huy.huynhducquang\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\huy.huynhducquang\\source\\repos\\EcommerceSystem\\EcommerceSystem.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\huy.huynhducquang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
