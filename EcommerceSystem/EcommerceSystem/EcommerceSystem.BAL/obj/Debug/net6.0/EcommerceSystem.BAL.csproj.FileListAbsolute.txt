@@ -1,0 +1,17 @@
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\bin\Debug\net6.0\EcommerceSystem.BAL.deps.json
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\bin\Debug\net6.0\EcommerceSystem.BAL.dll
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\bin\Debug\net6.0\EcommerceSystem.BAL.pdb
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\bin\Debug\net6.0\EcommerceSystem.DAL.dll
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\bin\Debug\net6.0\EcommerceSystem.Domain.dll
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\bin\Debug\net6.0\EcommerceSystem.DAL.pdb
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\bin\Debug\net6.0\EcommerceSystem.Domain.pdb
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\obj\Debug\net6.0\EcommerceSystem.BAL.csproj.AssemblyReference.cache
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\obj\Debug\net6.0\EcommerceSystem.BAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\obj\Debug\net6.0\EcommerceSystem.BAL.AssemblyInfoInputs.cache
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\obj\Debug\net6.0\EcommerceSystem.BAL.AssemblyInfo.cs
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\obj\Debug\net6.0\EcommerceSystem.BAL.csproj.CoreCompileInputs.cache
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\obj\Debug\net6.0\EcommerceSystem.BAL.csproj.CopyComplete
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\obj\Debug\net6.0\EcommerceSystem.BAL.dll
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\obj\Debug\net6.0\refint\EcommerceSystem.BAL.dll
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\obj\Debug\net6.0\EcommerceSystem.BAL.pdb
+C:\Users\huy.huynhducquang\Desktop\Project\EcommerceSystem\EcommerceSystem\EcommerceSystem\EcommerceSystem.BAL\obj\Debug\net6.0\ref\EcommerceSystem.BAL.dll
