@@ -9,8 +9,8 @@ namespace EcommerceProject.Domain.SharedKermel
 {
     public class MoneyValue : ValueObject
     {
-        private decimal Value { get; }
-        private string Currency { get; }
+        public decimal Value { get; }
+        public string Currency { get; }
         public MoneyValue(decimal value, string currency)
         {
             this.Value = value;

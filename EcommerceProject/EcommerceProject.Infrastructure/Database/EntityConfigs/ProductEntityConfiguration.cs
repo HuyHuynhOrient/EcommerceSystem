@@ -1,4 +1,5 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
+using EcommerceProject.Domain.SharedKermel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -9,20 +10,23 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Infrastructure.Database.EntityConfigs
 {
-    internal class ProductEntityConfiguration : IEntityTypeConfiguration<Product>
+    internal sealed class ProductEntityConfiguration : IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable("Product");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(k => k.Id);
 
-            builder.Property(x => x.Id).HasColumnName("Id");
-            builder.Property(x => x.Name).HasColumnName("Name");
-            // ColumPrice
-            builder.Property(x => x.ProductNumber).HasColumnName("ProductNumber");
-            builder.Property(x => x.TradeMark).HasColumnName("TradeMark");
-            builder.Property(x => x.Origin).HasColumnName("Origin");
-            builder.Property(x => x.Discription).HasColumnName("Discription");
+            builder.Property("Id").HasColumnName("ProductId");
+            builder.Property("Name").HasColumnName("Name").HasMaxLength(100).IsRequired();
+            builder.Property("ProductNumber").HasColumnName("ProductNumber").IsRequired();
+            builder.Property("TradeMark").HasColumnName("TradeMark").HasMaxLength(100);
+            builder.Property("Origin").HasColumnName("Origin").HasMaxLength(100);
+            builder.Property("Discription").HasColumnName("Discription").HasColumnType("ntext");
+            builder.OwnsOne<MoneyValue>(own => own.Price, price => {
+                price.Property(p => p.Currency).HasColumnName("Currency");
+                price.Property(p => p.Value).HasColumnName("Value");
+            });
         }
     }
 }

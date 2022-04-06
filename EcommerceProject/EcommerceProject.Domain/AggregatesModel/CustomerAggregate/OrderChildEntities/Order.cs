@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate.Orders
 {
-    public class Order : Entity<Guid>
+    public class Order : Entity<int>
     {
-        public List<OrderProduct> OrderProducts { get; }
-        public MoneyValue Value { get; private set; }
         public DateTime CreateDate { get; }
         public string ShippingAddress { get; }
         public string ShippingPhoneNumber { get; }
-        public OrderStatus OrderStatus { get; private set; }
         public bool isRemoved { get; private set; }
+        public OrderStatus OrderStatus { get; private set; }
+        public MoneyValue Value { get; private set; } 
+        public List<OrderProduct> OrderProducts { get; } // Relationship
         private Order(List<OrderProduct> orderProducts, string shippingAddress, string shippingPhoneNumner)
         {
-            this.Id = Guid.NewGuid();
+            // Set Identity for Id value
             this.OrderProducts = orderProducts;
             CalculateOrderValue();
             this.CreateDate = DateTime.Now;

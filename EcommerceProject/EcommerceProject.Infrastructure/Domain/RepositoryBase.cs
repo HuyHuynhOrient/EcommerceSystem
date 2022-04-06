@@ -4,9 +4,10 @@ using Microsoft.EntityFrameworkCore;
 namespace EcommerceProject.Infrastructure.Domain
 {
     public abstract class RepositoryBase<TAggregateRoot, TId> : IRepository<TAggregateRoot, TId>
-        where TAggregateRoot : AggregateRoot<TId>
+    where TAggregateRoot : AggregateRoot<TId>
     {
         protected DbContext DbContext { get; }
+
         protected RepositoryBase(DbContext context)
         {
             DbContext = context ?? throw new ArgumentNullException(nameof(context));
@@ -17,7 +18,7 @@ namespace EcommerceProject.Infrastructure.Domain
             return DbContext.Set<TAggregateRoot>().AnyAsync(x => x.Id.Equals(id), cancellationToken);
         }
 
-        public Task<bool> ExistsAsync(ISpecification<TAggregateRoot> specification, 
+        public Task<bool> ExistsAsync(ISpecification<TAggregateRoot> specification,
             CancellationToken cancellationToken = default)
         {
             return DbContext.Set<TAggregateRoot>().AnyAsync(specification.Expression, cancellationToken);
@@ -28,7 +29,7 @@ namespace EcommerceProject.Infrastructure.Domain
             return DbContext.Set<TAggregateRoot>().FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
         }
 
-        public Task<TAggregateRoot> FineOneAsync(ISpecification<TAggregateRoot> specification, 
+        public Task<TAggregateRoot> FindOneAsync(ISpecification<TAggregateRoot> specification,
             CancellationToken cancellationToken = default)
         {
             if (specification == null) return Task.FromResult(default(TAggregateRoot));
@@ -38,7 +39,8 @@ namespace EcommerceProject.Infrastructure.Domain
 
             return queryableWithInclude.FirstOrDefaultAsync(specification.Expression, cancellationToken);
         }
-        public Task<IEnumerable<TAggregateRoot>> FindAllAsync(ISpecification<TAggregateRoot> specification, 
+
+        public Task<IEnumerable<TAggregateRoot>> FindAllAsync(ISpecification<TAggregateRoot> specification,
             CancellationToken cancellationToken = default)
         {
             var queryable = DbContext.Set<TAggregateRoot>().AsQueryable();
@@ -52,7 +54,6 @@ namespace EcommerceProject.Infrastructure.Domain
                 .AsEnumerable();
             return Task.FromResult(result);
         }
-
 
         public async Task AddAsync(TAggregateRoot aggregate, CancellationToken cancellationToken = default)
         {

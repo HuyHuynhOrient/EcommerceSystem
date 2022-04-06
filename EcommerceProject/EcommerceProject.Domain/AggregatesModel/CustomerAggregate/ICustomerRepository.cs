@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate
 {
-    public interface ICustomerRepository : IRepository<Customer, Guid>
+    public interface ICustomerRepository : IRepository<Customer, int>
     {
     }
 }

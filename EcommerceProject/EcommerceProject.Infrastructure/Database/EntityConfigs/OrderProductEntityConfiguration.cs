@@ -1,4 +1,5 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate.OrderChildEntities;
+using EcommerceProject.Domain.SharedKermel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -9,16 +10,19 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Infrastructure.Database.EntityConfigs
 {
-    internal class OrderProductEntityConfiguration : IEntityTypeConfiguration<OrderProduct>
+    internal sealed class OrderProductEntityConfiguration : IEntityTypeConfiguration<OrderProduct>
     {
         public void Configure(EntityTypeBuilder<OrderProduct> builder)
         {
-            builder.ToTable("OrderProduct");
-            builder.HasKey(x => x.Id);
+            builder.ToTable("OrderProduct", SchemaName.Order);
+            builder.HasKey(k => k.Id);
+            builder.HasOne(b => b.Product).WithMany();
 
-            builder.Property(x => x.Id).HasColumnName("Id");
-            builder.Property(x => x.Quantity).HasColumnName("Quantity");
-            builder.Property(x => x.Value).HasColumnName("Value");
+            builder.Property<Guid>("OrderId").HasColumnName("OrderId");
+            builder.OwnsOne<MoneyValue>(own => own.Value, value => {
+                value.Property(p => p.Currency).HasColumnName("Currency");
+                value.Property(p => p.Value).HasColumnName("Value");
+            });
         }
     }
 }

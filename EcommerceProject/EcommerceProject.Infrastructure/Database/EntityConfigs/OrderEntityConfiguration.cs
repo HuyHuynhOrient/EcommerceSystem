@@ -1,6 +1,9 @@
-﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate.Orders;
+﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate.OrderChildEntities;
+using EcommerceProject.Domain.AggregatesModel.CustomerAggregate.Orders;
+using EcommerceProject.Domain.SharedKermel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +12,24 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Infrastructure.Database.EntityConfigs
 {
-    internal class OrderEntityConfiguration : IEntityTypeConfiguration<Order>
+    internal sealed class OrderEntityConfiguration : IEntityTypeConfiguration<Order>
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.ToTable("Order");
-            builder.HasKey(x => x.Id);
+            builder.ToTable("Order", SchemaName.Order);
+            builder.HasKey(k => k.Id);
+            builder.HasMany(o => o.OrderProducts).WithOne().OnDelete(DeleteBehavior.Cascade);
 
-            builder.Property(x => x.Id).HasColumnName("Id");
-            builder.Property(x => x.Value).HasColumnName("Value");
-            builder.Property(x => x.CreateDate).HasColumnName("CreateDate");
-            builder.Property(x => x.ShippingAddress).HasColumnName("ShippingAddress");
-            builder.Property(x => x.ShippingPhoneNumber).HasColumnName("ShippingPhoneNumber");
-            builder.Property(x => x.OrderStatus).HasColumnName("OrderStatus");
-            builder.Property(x => x.isRemoved).HasColumnName("IsRemoved");
+            builder.Property("Id").HasColumnName("OrderId");
+            builder.Property("CreateDate").HasColumnName("CreateDate").HasColumnType("date").IsRequired();
+            builder.Property("ShippingAddress").HasColumnName("ShippingAddress").HasMaxLength(200).IsRequired();
+            builder.Property("ShippingPhoneNumber").HasColumnName("ShippingPhoneNumber").HasColumnType("varchar").HasMaxLength(100).IsRequired();
+            builder.Property("isRemoved").HasColumnName("IsRemoved").IsRequired();
+            builder.Property("OrderStatus").HasColumnName("OrderStatus").HasConversion(new EnumToNumberConverter<OrderStatus, byte>());
+            builder.OwnsOne<MoneyValue>(own => own.Value, value => {
+                value.Property(p => p.Currency).HasColumnName("Currency");
+                value.Property(p => p.Value).HasColumnName("Value");
+            });
         }
     }
 }

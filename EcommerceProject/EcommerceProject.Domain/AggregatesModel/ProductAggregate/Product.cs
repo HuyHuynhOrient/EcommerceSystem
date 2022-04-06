@@ -9,27 +9,23 @@ using System.Threading.Tasks;
 namespace EcommerceProject.Domain.AggregatesModel.ProductAggregate
 {
     // Aggregate root
-    public class Product : AggregateRoot<Guid>
+    public class Product : AggregateRoot<int>
     {
         public string Name { get; }
         public MoneyValue Price { get; }
-        public int ProductNumber { get; private set; }
+        public int ProductNumber { get; }
         public string TradeMark { get; }
         public string Origin { get; }
         public string Discription { get; }
         public Product(string name, MoneyValue price, int productNumber, string tradeMark, string origin, string discription)
         {
-            this.Id = Guid.NewGuid();
+            // Set Identity for Id value
             this.Name = name;
             this.Price = price;
             this.ProductNumber = productNumber;
             this.TradeMark = tradeMark;
             this.Origin = origin;
             this.Discription = discription;
-        }
-        public void ChangeProductNumber(int productNumber)
-        {
-            ProductNumber = productNumber;
         }
     }
 }

@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate.OrderChildEntities
 {
-    public class OrderProduct : Entity<Guid>
+    public class OrderProduct : Entity<int>
     {
-        public Product Product { get; }
         public int Quantity { get; private set; }
         public MoneyValue Value { get; private set; }
+        public Product Product { get; } // Relationship
         private OrderProduct(Product product, int quantity)
         {
+            // Set identity for Id value
             this.Product = product;
             this.Quantity = quantity;
             CalculateOrderProductValue(product, quantity);

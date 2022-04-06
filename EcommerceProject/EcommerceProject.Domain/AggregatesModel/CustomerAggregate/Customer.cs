@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate
 {
-    public class Customer : AggregateRoot<Guid>
+    public class Customer : AggregateRoot<int>
     {
         public string Name { get; }
         public string UserName { get; }
@@ -20,7 +20,7 @@ namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate
 
         private Customer(string name, string userName)
         {
-            this.Id = Guid.NewGuid();
+            // Set Identity for Id value
             this.Name = name;
             this.UserName = userName;
             this.Orders = new List<Order>();
@@ -30,16 +30,16 @@ namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate
             CheckRule(new CustomerEmailMustBeUniqueRule(customerUniquenessChecker, email));
             return new Customer(name, userName);
         }
-        internal Guid PlaceOrder(List<OrderProduct> orderProducts, string shippingAddress, string shippingPhoneNumner)
+        internal int PlaceOrder(List<OrderProduct> orderProducts, string shippingAddress, string shippingPhoneNumner)
         {
             CheckRule(new TheOrderMustHaveTheSameCurrencyRule(orderProducts));
             var order = Order.CreateNewOrder(orderProducts, shippingAddress, shippingPhoneNumner);
             this.Orders.Add(order);
             return order.Id;
         }
-        internal void RemoveOrder(Guid orderId)
+        internal void RemoveOrder(int id)
         {
-            var order = this.Orders.Single(x => x.Id == orderId);
+            var order = this.Orders.Single(x => x.Id == id);
             order.RemoveOrder();
         }
     }

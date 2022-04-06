@@ -1,11 +1,18 @@
-var builder = WebApplication.CreateBuilder(args);
+using EcommerceProject.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
+using EcommerceProject.Infrastructure.Domain;
+using NetProject.Infrastructure.Domain;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHealthChecks();
+builder.Services.AddDatabase(configuration);
+
+
 
 var app = builder.Build();
 

@@ -12,12 +12,16 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Infrastructure.Database
 {
-    public class AppDbContext : DbContext
+    public sealed class AppDbContext : DbContext
     {
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderProduct> OrderProducts { get; set; }
+        public DbSet<Product> Products { get; set; }   // Product aggregate
+        public DbSet<Customer> Customers { get; set; } // Customer aggregate
+        public DbSet<Order> Orders { get; set; } // Customer's Entity
+        public DbSet<OrderProduct> OrderProducts { get; set; } // Customer's Entity
+        public AppDbContext(DbContextOptions options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
