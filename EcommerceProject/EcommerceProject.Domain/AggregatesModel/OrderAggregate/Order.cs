@@ -7,20 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate.Orders
+namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
 {
-    public class Order : Entity<int>
+    public class Order : AggregateRoot<int>
     {
+        public int CustormerId { get; } // Aggregate relationship
         public DateTime CreateDate { get; }
         public string ShippingAddress { get; }
         public string ShippingPhoneNumber { get; }
-        public bool isRemoved { get; private set; }
         public OrderStatus OrderStatus { get; private set; }
+        public bool isRemoved { get; private set; }
         public MoneyValue Value { get; private set; } 
-        public List<OrderProduct> OrderProducts { get; } // Relationship
-        private Order(List<OrderProduct> orderProducts, string shippingAddress, string shippingPhoneNumner)
+        public List<OrderProduct> OrderProducts { get; } // Navigation
+        private Order(List<OrderProduct> orderProducts, int customerId, 
+                            string shippingAddress, string shippingPhoneNumner)
         {
-            // Set Identity for Id value
+            // Id propertiy is is set auto-increment
+            this.CustormerId = customerId;
             this.OrderProducts = orderProducts;
             CalculateOrderValue();
             this.CreateDate = DateTime.Now;
@@ -31,9 +34,10 @@ namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate.Orders
         }
 
         // Custommer create and remove an order
-        internal static Order CreateNewOrder(List<OrderProduct> orderProducts, string shippingAddress, string shippingPhoneNumner)
+        internal static Order CreateNewOrder(List<OrderProduct> orderProducts, int customerId,
+                                                string shippingAddress, string shippingPhoneNumner)
         {
-            return new Order(orderProducts, shippingAddress, shippingPhoneNumner);
+            return new Order(orderProducts, customerId, shippingAddress, shippingPhoneNumner);
         }
         internal void RemoveOrder()
         {

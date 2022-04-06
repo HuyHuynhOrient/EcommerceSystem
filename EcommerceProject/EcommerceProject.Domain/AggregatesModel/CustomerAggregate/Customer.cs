@@ -16,31 +16,18 @@ namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate
         public string Name { get; }
         public string UserName { get; }
         public string Email { get; }
-        public List<Order> Orders { get; private set; }
 
-        private Customer(string name, string userName)
+        private Customer(string name, string userName, string email)
         {
-            // Set Identity for Id value
+            // Id propertiy is is set auto-increment
             this.Name = name;
             this.UserName = userName;
-            this.Orders = new List<Order>();
+            this.Email = email;
         }
         internal static Customer CreateRegisterCustomer(string name, string userName, string email, ICustomerUniquenessChecker customerUniquenessChecker)
         {
             CheckRule(new CustomerEmailMustBeUniqueRule(customerUniquenessChecker, email));
-            return new Customer(name, userName);
-        }
-        internal int PlaceOrder(List<OrderProduct> orderProducts, string shippingAddress, string shippingPhoneNumner)
-        {
-            CheckRule(new TheOrderMustHaveTheSameCurrencyRule(orderProducts));
-            var order = Order.CreateNewOrder(orderProducts, shippingAddress, shippingPhoneNumner);
-            this.Orders.Add(order);
-            return order.Id;
-        }
-        internal void RemoveOrder(int id)
-        {
-            var order = this.Orders.Single(x => x.Id == id);
-            order.RemoveOrder();
+            return new Customer(name, userName, email);
         }
     }
 }

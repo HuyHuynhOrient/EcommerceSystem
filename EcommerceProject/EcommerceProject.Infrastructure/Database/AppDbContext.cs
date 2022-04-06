@@ -1,6 +1,5 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
-using EcommerceProject.Domain.AggregatesModel.CustomerAggregate.OrderChildEntities;
-using EcommerceProject.Domain.AggregatesModel.CustomerAggregate.Orders;
+using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
 using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
 using EcommerceProject.Infrastructure.Database.EntityConfigs;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +13,9 @@ namespace EcommerceProject.Infrastructure.Database
 {
     public sealed class AppDbContext : DbContext
     {
-        public DbSet<Product> Products { get; set; }   // Product aggregate
-        public DbSet<Customer> Customers { get; set; } // Customer aggregate
-        public DbSet<Order> Orders { get; set; } // Customer's Entity
-        public DbSet<OrderProduct> OrderProducts { get; set; } // Customer's Entity
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
         {
             Database.EnsureCreated();

@@ -13,7 +13,6 @@ namespace EcommerceProject.Domain.AggregatesModel.ProductAggregate
     {
         public string Name { get; }
         public MoneyValue Price { get; }
-        public int ProductNumber { get; }
         public string TradeMark { get; }
         public string Origin { get; }
         public string Discription { get; }
