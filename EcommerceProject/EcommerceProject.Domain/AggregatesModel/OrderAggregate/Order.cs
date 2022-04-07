@@ -1,5 +1,4 @@
-﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate.OrderChildEntities;
-using EcommerceProject.Domain.SeedWork;
+﻿using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Domain.SharedKermel;
 using System;
 using System.Collections.Generic;
@@ -15,8 +14,8 @@ namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
         public DateTime CreateDate { get; }
         public string ShippingAddress { get; }
         public string ShippingPhoneNumber { get; }
-        public OrderStatus OrderStatus { get; private set; }
         public bool isRemoved { get; private set; }
+        public OrderStatus OrderStatus { get; private set; }
         public MoneyValue Value { get; private set; } 
         public List<OrderProduct> OrderProducts { get; } // Navigation
         private Order(List<OrderProduct> orderProducts, int customerId, 

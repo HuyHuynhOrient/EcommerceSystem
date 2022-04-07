@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceProject.Infrastructure.Domain
 {
-    public abstract class RepositoryBase<TAggregateRoot, TId> : IRepository<TAggregateRoot, TId>
+    public abstract class BaseRepository<TAggregateRoot, TId> : IBaseRepository<TAggregateRoot, TId>
     where TAggregateRoot : AggregateRoot<TId>
     {
         protected DbContext DbContext { get; }
 
-        protected RepositoryBase(DbContext context)
+        protected BaseRepository(DbContext context)
         {
             DbContext = context ?? throw new ArgumentNullException(nameof(context));
         }

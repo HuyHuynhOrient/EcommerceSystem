@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Domain.AggregatesModel.ProductAggregate
 {
-    public interface IProductRepository : IRepository<Product, int>
+    public interface IProductRepository : IBaseRepository<Product, int>
     {
     }
 }

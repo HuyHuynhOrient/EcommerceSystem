@@ -1,6 +1,4 @@
-﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate.OrderChildEntities;
-using EcommerceProject.Domain.AggregatesModel.CustomerAggregate.Orders;
-using EcommerceProject.Domain.AggregatesModel.CustomerAggregate.Rules;
+﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate.Rules;
 using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Domain.SharedKermel;
 using System;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
 {
-    public interface IOrderRepository : IRepository<Order, int>
+    public interface IOrderRepository : IBaseRepository<Order, int>
     {
 
     }

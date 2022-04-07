@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Domain.SeedWork
 {
-    public interface IRepository<TAggregateRoot, in TId> where TAggregateRoot : AggregateRoot<TId>
+    public interface IBaseRepository<TAggregateRoot, in TId> where TAggregateRoot : AggregateRoot<TId>
     {
         Task<bool> ExistsAsync(TId id, CancellationToken cancellationToken = default);
 

@@ -16,12 +16,11 @@ namespace EcommerceProject.Domain.AggregatesModel.ProductAggregate
         public string TradeMark { get; }
         public string Origin { get; }
         public string Discription { get; }
-        public Product(string name, MoneyValue price, int productNumber, string tradeMark, string origin, string discription)
+        public Product(string name, MoneyValue price, string tradeMark, string origin, string discription)
         {
             // Set Identity for Id value
             this.Name = name;
             this.Price = price;
-            this.ProductNumber = productNumber;
             this.TradeMark = tradeMark;
             this.Origin = origin;
             this.Discription = discription;

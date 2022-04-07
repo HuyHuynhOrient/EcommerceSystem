@@ -11,4 +11,10 @@
     <ProjectReference Include="..\EcommerceProject.Infrastructure\EcommerceProject.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Queries\Customers\" />
+    <Folder Include="Queries\Orders\" />
+  </ItemGroup>
+
 </Project>
