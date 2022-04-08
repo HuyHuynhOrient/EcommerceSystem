@@ -11,6 +11,7 @@ namespace EcommerceProject.Infrastructure.CQRS.Command
     {
 
     }
+
     public interface ICommand<TResponse> : IRequest<CommandResult<TResponse>>
     {
 

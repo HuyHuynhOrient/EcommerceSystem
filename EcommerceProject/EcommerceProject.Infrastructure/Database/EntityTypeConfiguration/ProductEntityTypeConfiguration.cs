@@ -18,13 +18,13 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
             builder.HasKey(k => k.Id);
 
             builder.Property(p => p.Id).HasColumnName("ProductId").UseIdentityColumn();
-            builder.Property(p => p.Name).HasColumnName("Name").HasMaxLength(100).IsRequired();
-            builder.Property(p => p.TradeMark).HasColumnName("TradeMark").HasMaxLength(100);
-            builder.Property(p => p.Origin).HasColumnName("Origin").HasMaxLength(100);
-            builder.Property(p => p.Discription).HasColumnName("Discription").HasColumnType("ntext");
+            builder.Property(p => p.Name).HasColumnName("Name");
+            builder.Property(p => p.TradeMark).HasColumnName("TradeMark");
+            builder.Property(p => p.Origin).HasColumnName("Origin");
+            builder.Property(p => p.Discription).HasColumnName("Discription");
             builder.OwnsOne<MoneyValue>(own => own.Price, price => {
-                price.Property(p => p.Currency).HasColumnName("Currency").HasColumnType("nvarchar(30)").IsRequired();
-                price.Property(p => p.Value).HasColumnName("Value").HasColumnType("decimal(18,2)").IsRequired();
+                price.Property(p => p.Currency).HasColumnName("Currency");
+                price.Property(p => p.Value).HasColumnName("Value").HasColumnType("decimal(12,8)");
             });
         }
     }

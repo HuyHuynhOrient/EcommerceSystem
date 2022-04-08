@@ -9,11 +9,12 @@ namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
     // Definition statuses of the order. 
     public enum OrderStatus
     {
-       Placed,
-       InRealization,
-       Canceled,
-       Delivered,
-       Sent,
-       WaitingForPayment
+        Cart,
+        Placed,
+        InRealization,
+        Canceled,
+        Delivered,
+        Sent,
+        WaitingForPayment
     }
 }

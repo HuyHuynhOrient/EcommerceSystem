@@ -10,7 +10,7 @@ namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
 {
     public class Order : AggregateRoot<int>
     {
-        public int CustormerId { get; } // Aggregate relationship
+        public int CustomerId { get; } // Aggregate relationship
         public DateTime CreateDate { get; }
         public string ShippingAddress { get; }
         public string ShippingPhoneNumber { get; }
@@ -18,39 +18,40 @@ namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
         public OrderStatus OrderStatus { get; private set; }
         public MoneyValue Value { get; private set; } 
         public List<OrderProduct> OrderProducts { get; } // Navigation
-        private Order(List<OrderProduct> orderProducts, int customerId, 
-                            string shippingAddress, string shippingPhoneNumner)
+
+        private Order()
+        {
+
+        }
+
+        public Order(int customerId, string shippingAddress, string shippingPhoneNumber)
         {
             // Id propertiy is is set auto-increment
-            this.CustormerId = customerId;
-            this.OrderProducts = orderProducts;
-            CalculateOrderValue();
+            this.CustomerId = customerId;
             this.CreateDate = DateTime.Now;
             this.ShippingAddress = shippingAddress;
-            this.ShippingPhoneNumber = shippingPhoneNumner;
-            this.OrderStatus = OrderStatus.Placed;
+            this.ShippingPhoneNumber = shippingPhoneNumber;
             this.isRemoved = false;
+            this.OrderStatus = OrderStatus.Placed;
+            this.OrderProducts = new List<OrderProduct>();
         }
 
-        // Custommer create and remove an order
-        internal static Order CreateNewOrder(List<OrderProduct> orderProducts, int customerId,
-                                                string shippingAddress, string shippingPhoneNumner)
-        {
-            return new Order(orderProducts, customerId, shippingAddress, shippingPhoneNumner);
-        }
-        internal void RemoveOrder()
-        {
-            this.isRemoved = true;
-        }
-
-        // Admin change the order status
-        internal void ChangeOrderStatus(OrderStatus orderStatus)
-        {
-            this.OrderStatus = orderStatus;
-        }
         internal void CalculateOrderValue()
         {
             this.Value = this.OrderProducts.Sum(x => x.Value);
+        }
+
+        internal void AddOrderProduct(int productId, int quantity, MoneyValue price)
+        {
+            MoneyValue value = quantity * price;
+            OrderProduct orderproduct = new OrderProduct(productId, quantity, value);
+            this.OrderProducts.Add(orderproduct);
+            CalculateOrderValue();
+        }
+        internal void RemoveOrderProduct(OrderProduct orderProduct)
+        {
+            this.OrderProducts.Remove(orderProduct);
+            CalculateOrderValue();
         }
     }
 }

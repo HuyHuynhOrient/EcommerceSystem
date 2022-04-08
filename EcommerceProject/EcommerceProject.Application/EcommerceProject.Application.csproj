@@ -12,9 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
+    <Folder Include="Commands\Customers\RegisterCustomer\" />
+    <Folder Include="Commands\Orders\ChangeCustomerOrderStatus\" />
+    <Folder Include="Commands\Orders\PlaceCustomerOrder\" />
     <Folder Include="Queries\Customers\" />
-    <Folder Include="Queries\Orders\" />
   </ItemGroup>
 
 </Project>

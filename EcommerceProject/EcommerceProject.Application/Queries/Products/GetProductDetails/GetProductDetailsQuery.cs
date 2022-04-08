@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceProject.Application.Queries.Products
+namespace EcommerceProject.Application.Queries.Products.GetProductById
 {
-    public class GetProductByIdQuery : IQuery<Product>
+    public class GetProductDetailsQuery : IQuery<Product>
     {
         public int Id { get; init; }
 

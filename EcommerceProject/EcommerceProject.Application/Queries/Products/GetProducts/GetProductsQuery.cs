@@ -1,9 +1,9 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
 using EcommerceProject.Infrastructure.CQRS.Queries;
 
-namespace EcommerceProject.Application.Queries.Products
+namespace EcommerceProject.Application.Queries.Products.GetProducts
 {
-    public class GetAllProductsQuery : IQuery<IEnumerable<Product>>
+    public class GetProductsQuery : IQuery<IEnumerable<Product>>
     {
     }
 }

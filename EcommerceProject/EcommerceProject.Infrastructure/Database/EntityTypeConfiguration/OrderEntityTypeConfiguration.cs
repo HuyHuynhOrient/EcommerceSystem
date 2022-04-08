@@ -18,36 +18,21 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.ToTable("Order");
-            builder.HasKey(k => k.Id);
-            builder.HasOne<Customer>().WithMany();
 
             builder.Property(p => p.Id).HasColumnName("OrderId").UseIdentityColumn();
-            builder.Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("date").IsRequired();
-            builder.Property(p => p.ShippingAddress).HasColumnName("ShippingAddress").HasMaxLength(200).IsRequired();
-            builder.Property(p => p.ShippingPhoneNumber).HasColumnName("ShippingPhoneNumber").HasColumnType("varchar").HasMaxLength(100).IsRequired();
+            builder.HasKey(k => k.Id);
+            builder.Property(p => p.CustomerId).HasColumnName("CustomerId");
+            builder.HasOne<Customer>().WithMany();
+            builder.HasMany(p => p.OrderProducts).WithOne();
+
+            builder.Property(p => p.CreateDate).HasColumnName("CreateDate");
+            builder.Property(p => p.ShippingAddress).HasColumnName("ShippingAddress");
+            builder.Property(p => p.ShippingPhoneNumber).HasColumnName("ShippingPhoneNumber");
             builder.Property(p => p.isRemoved).HasColumnName("IsRemoved").IsRequired();
             builder.Property(p => p.OrderStatus).HasColumnName("OrderStatus").HasConversion(new EnumToNumberConverter<OrderStatus, byte>());
             builder.OwnsOne<MoneyValue>(own => own.Value, value => {
-                value.Property(p => p.Currency).HasColumnName("Currency").HasColumnType("nvarchar(30)").IsRequired();
-                value.Property(p => p.Value).HasColumnName("Value").HasColumnType("decimal(18,2)").IsRequired();
-            });
-            builder.OwnsMany<OrderProduct>(own => own.OrderProducts, od => {
-                od.WithOwner().HasForeignKey("OrderId");
-
-                od.ToTable("OrderProduct");
-                od.HasKey(k => k.Id);
-                od.HasOne<Product>().WithMany();
-
-                od.Property(p => p.Id).HasColumnName("OrderProductId");
-                od.Property<int>("OrderId").HasColumnName("OrderId").IsRequired();
-                od.Property(p => p.ProductId).HasColumnName("ProductId").IsRequired();
-                od.Property(p => p.Quantity).HasColumnName("Quantity").IsRequired();
-                od.OwnsOne<MoneyValue>(own => own.Value, value => {
-                    value.Property(p => p.Currency).HasColumnName("Currency").HasColumnType("nvarchar(30)").IsRequired();
-                    value.Property(p => p.Value).HasColumnName("Value").HasColumnType("decimal(18,2)").IsRequired();
-                });
-
-                od.HasIndex("OrderId", "ProductId").IsUnique();
+                value.Property(p => p.Currency).HasColumnName("Currency");
+                value.Property(p => p.Value).HasColumnName("Value").HasColumnType("decimal(12,8)");
             });
         }
     }

@@ -17,9 +17,9 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
             builder.HasKey(k => k.Id);
 
             builder.Property(p => p.Id).HasColumnName("CustomerId").UseIdentityColumn();
-            builder.Property(p => p.Name).HasColumnName("Name").HasMaxLength(150).IsRequired();
-            builder.Property(p => p.UserName).HasColumnName("UserName").HasMaxLength(100).IsRequired();
-            builder.Property(p => p.Email).HasColumnName("Email").HasMaxLength(150).IsRequired();
+            builder.Property(p => p.Name).HasColumnName("Name");
+            builder.Property(p => p.UserName).HasColumnName("UserName");
+            builder.Property(p => p.Email).HasColumnName("Email");
         }
     }
 }

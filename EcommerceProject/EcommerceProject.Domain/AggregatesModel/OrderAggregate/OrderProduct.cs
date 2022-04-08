@@ -14,25 +14,23 @@ namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
         public int ProductId { get; } // Aggregate relationship
         public int Quantity { get; private set; }
         public MoneyValue Value { get; private set; }
-        private OrderProduct(OrderProductData orderProductData)
+
+        private OrderProduct()
         {
-            // Id propertiy is is set auto-increment
-            this.ProductId = orderProductData.ProductId;
-            this.Quantity = orderProductData.Quantity;
-            CalculateOrderProductValue(orderProductData);
+
         }
-        internal OrderProduct CreateAnOrderProduct(OrderProductData orderProductData)
+
+        public OrderProduct(int productId, int quantity, MoneyValue value)
         {
-            return new OrderProduct(orderProductData);
+            //Id propertiy is is set auto - increment
+            this.ProductId = productId;
+            this.Quantity = quantity;
+            this.Value = value;
         }
-        internal void ChangeQuantity(OrderProductData orderProductData)
+        internal void ChangeQuantity(int quantity, MoneyValue value)
         {
-            this.Quantity = orderProductData.Quantity;
-            this.CalculateOrderProductValue(orderProductData);
-        }
-        internal void CalculateOrderProductValue(OrderProductData orderProductData)
-        {
-            this.Value = orderProductData.Quantity * orderProductData.Price;
+            this.Quantity = quantity;
+            this.Value = value;
         }
     }
 }
