@@ -1,9 +1,4 @@
 ﻿using EcommerceProject.Domain.SeedWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EcommerceProject.Domain.SharedKermel
 {
@@ -11,6 +6,7 @@ namespace EcommerceProject.Domain.SharedKermel
     {
         private readonly MoneyValue _left;
         private readonly MoneyValue _right;
+
         public MoneyValueOperationMustBePerformedOnTheSameCurrencyRule(MoneyValue left, MoneyValue right)
         {
             _left = left;

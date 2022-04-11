@@ -7,15 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EcommerceProject.Domain\EcommerceProject.Domain.csproj" />
-    <ProjectReference Include="..\EcommerceProject.Infrastructure\EcommerceProject.Infrastructure.csproj" />
+    <Compile Remove="Commands\Orders\PlaceCustomerOrder\**" />
+    <EmbeddedResource Remove="Commands\Orders\PlaceCustomerOrder\**" />
+    <None Remove="Commands\Orders\PlaceCustomerOrder\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Customers\RegisterCustomer\" />
-    <Folder Include="Commands\Orders\ChangeCustomerOrderStatus\" />
-    <Folder Include="Commands\Orders\PlaceCustomerOrder\" />
-    <Folder Include="Queries\Customers\" />
+    <ProjectReference Include="..\EcommerceProject.Domain\EcommerceProject.Domain.csproj" />
+    <ProjectReference Include="..\EcommerceProject.Infrastructure\EcommerceProject.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

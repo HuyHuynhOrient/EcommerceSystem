@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace EcommerceProject.Infrastructure.Domain
 {
     public abstract class BaseRepository<TAggregateRoot, TId> : IBaseRepository<TAggregateRoot, TId>
-    where TAggregateRoot : AggregateRoot<TId>
+             where TAggregateRoot : AggregateRoot<TId>
     {
         protected DbContext DbContext { get; }
 
@@ -52,6 +52,7 @@ namespace EcommerceProject.Infrastructure.Domain
                 .Where(specification.Expression)
                 .AsNoTracking()
                 .AsEnumerable();
+
             return Task.FromResult(result);
         }
 

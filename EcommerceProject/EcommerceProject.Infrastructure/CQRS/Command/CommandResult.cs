@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EcommerceProject.Infrastructure.CQRS.Command
+﻿namespace EcommerceProject.Infrastructure.CQRS.Command
 {
     public class CommandResult
     {
@@ -15,10 +9,12 @@ namespace EcommerceProject.Infrastructure.CQRS.Command
         {
 
         }
+
         public static CommandResult Success()
         {
             return new CommandResult { IsSuccess = true };
         }
+
         public static CommandResult Error(string message = null)
         {
             return new CommandResult { Message = message };
@@ -36,7 +32,7 @@ namespace EcommerceProject.Infrastructure.CQRS.Command
         
         public static CommandResult<TResponse> Error(string message = null)
         {
-            return new CommandResult<TResponse> { Message = message };
+            return new CommandResult<TResponse> { Message = message};
         }
     }
 }

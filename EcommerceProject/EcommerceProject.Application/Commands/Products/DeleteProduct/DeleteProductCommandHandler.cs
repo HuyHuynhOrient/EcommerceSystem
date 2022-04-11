@@ -1,10 +1,5 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EcommerceProject.Application.Commands.Products.DeleteProduct
 {
@@ -19,9 +14,10 @@ namespace EcommerceProject.Application.Commands.Products.DeleteProduct
 
         public async Task<CommandResult<int>> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.FindOneAsync(command.Id, cancellationToken);
+            var product = await _productRepository.FindOneAsync(command.ProductId, cancellationToken);
             await _productRepository.DeleteAsync(product);
-            return CommandResult<int>.Success(product.Id);
+
+            return CommandResult<int>.Success(command.ProductId);
         }
     }
 }

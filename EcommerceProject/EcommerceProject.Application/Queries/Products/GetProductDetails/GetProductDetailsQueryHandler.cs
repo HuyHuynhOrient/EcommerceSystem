@@ -1,10 +1,5 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
 using EcommerceProject.Infrastructure.CQRS.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EcommerceProject.Application.Queries.Products.GetProductById
 {
@@ -17,9 +12,9 @@ namespace EcommerceProject.Application.Queries.Products.GetProductById
             _productRepository = productRepository;
         }
 
-        public async Task<Product> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<Product> Handle(GetProductDetailsQuery query, CancellationToken cancellationToken)
         {
-            return await _productRepository.FindOneAsync(request.Id, cancellationToken);
+            return await _productRepository.FindOneAsync(query.ProductId, cancellationToken);
         }
     }
 }

@@ -1,12 +1,6 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
 using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.Database;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EcommerceProject.Infrastructure.Domain.Repository
 {
@@ -19,6 +13,7 @@ namespace EcommerceProject.Infrastructure.Domain.Repository
         {
             var spec = new SpecificationBase<Order>(x => x.Id == id);
             spec.Includes.Add(x => x.OrderProducts);
+
             return FindOneAsync(spec, cancellationToken);
         }
     }

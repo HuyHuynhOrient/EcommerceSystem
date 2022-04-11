@@ -1,11 +1,6 @@
 ﻿using EcommerceProject.Domain.SeedWork;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EcommerceProject.Infrastructure.CQRS.Command
 {
@@ -13,6 +8,7 @@ namespace EcommerceProject.Infrastructure.CQRS.Command
     {
         private readonly IMediator _mediator;
         private readonly IUnitOfWork _unitOfWork;
+
         public CommandBus(IServiceProvider serviceProvider)
         {
             _mediator = serviceProvider.GetRequiredService<IMediator>();

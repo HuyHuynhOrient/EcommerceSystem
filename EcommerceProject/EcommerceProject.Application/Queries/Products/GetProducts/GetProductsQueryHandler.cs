@@ -12,7 +12,7 @@ namespace EcommerceProject.Application.Queries.Products.GetProducts
             _productRepository = productRepository;
         }
 
-        public async Task<IEnumerable<Product>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Product>> Handle(GetProductsQuery query, CancellationToken cancellationToken)
         {
             return await _productRepository.FindAllAsync(null, cancellationToken);
         }
