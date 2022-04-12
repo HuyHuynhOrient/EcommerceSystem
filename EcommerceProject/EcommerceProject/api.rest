@@ -1,0 +1,106 @@
+@url = https://localhost:7241/api
+
+# @name registerCustomer
+POST {{url}}/customers
+content-type: application/json
+
+{
+  "name": "Huynh Duc Quang Huy",
+  "userName": "huy.huynhducquang",
+  "email": "huyyyy@mail.com"
+}
+###
+
+@cartId = {{cartId.response.body.id}}
+
+# @name getCartDetails
+GET {{url}}/carts/{{cartId}}
+###
+
+# @name addProductToCart
+POST {{url}}/carts/{{cartId}}/cart-products
+content-type: application/json
+
+{
+  "productId": 1,
+  "quantity": 1
+}
+###
+
+@cartProductId = {{cartProductId.response.body.id}}
+
+# @name changeProductQuantity
+POST {{url}}/carts/{{cartId}}/cart-products/{{cartProductId}}
+content-type: application/json
+
+{
+  "productId": 1,
+  "quantity": 1
+}
+###
+
+# @name removeProductFromCart
+DELETE {{url}}/carts/{{cartId}}/cart-products/{{cartProductId}}
+###
+
+@cartId = {{cartId.response.body.id}}
+
+# @name placeOrder
+POST {{url}}/carts/{{cartId}}/place-order
+###
+
+@orderId = {{orderId.response.body.id}}
+
+# @name getOrderDetails
+GET {{url}}/orders/{{orderId}}
+###
+
+# @name changeOrderStatus
+PUT {{url}}/orders/{{orderId}}/change-order-status
+###
+
+
+# @name getProducts
+GET {{url}}/products
+###
+
+@productId = {{productId.response.body.id}}
+# @name getProductDetails
+GET {{url}}/products/{{productId}}
+###
+
+# @name createProduct
+POST {{url}}/products/{{productId}}
+content-type: application/json
+
+{
+  "name": "string",
+  "price": {
+    "value": 0,
+    "currency": "string"
+  },
+  "tradeMark": "string",
+  "origin": "string",
+  "discription": "string"
+}
+###
+
+# @name updateProduct
+PUT {{url}}/products/{{productId}}
+content-type: application/json
+
+{
+  "name": "string",
+  "price": {
+    "value": 0,
+    "currency": "string"
+  },
+  "tradeMark": "string",
+  "origin": "string",
+  "discription": "string"
+}
+###
+
+# @name deleteProduct
+DELETE {{url}}/products/{{productId}}
+###
