@@ -21,6 +21,9 @@ namespace EcommerceProject.Application.Commands.Carts.AddProductToCart
 
         public async Task<CommandResult<int>> Handle(AddProductToCartCommand command, CancellationToken cancellationToken)
         {
+            var customer = await _customerRepository.FindOneAsync(command.CustomerId, cancellationToken);
+            if (customer == null) return CommandResult<int>.Error("You do not have permission to execute this command.");
+
             var cart = await _cartRepository.FindOneAsync(command.CartId, cancellationToken);
             if (cart == null) return CommandResult<int>.Error("Your cart is not exist.");
            

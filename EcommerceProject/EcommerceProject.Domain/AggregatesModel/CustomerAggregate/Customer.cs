@@ -10,7 +10,6 @@ namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate
 
         public Customer(string name, string userName, string email)
         {
-            this.Id = Guid.NewGuid();
             this.Name = name;
             this.UserName = userName;
             this.Email = email;

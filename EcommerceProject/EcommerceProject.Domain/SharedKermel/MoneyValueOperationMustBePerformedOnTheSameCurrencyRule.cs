@@ -13,7 +13,7 @@ namespace EcommerceProject.Domain.SharedKermel
             _right = right;
         }
 
-        public bool IsBroken() => _left != _right;
+        public bool IsBroken() => _left.Currency != _right.Currency;
         public string Message => "Money value currencies must be the same";
     }
 }

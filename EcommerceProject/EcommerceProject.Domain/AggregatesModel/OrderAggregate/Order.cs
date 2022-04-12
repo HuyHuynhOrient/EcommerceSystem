@@ -24,7 +24,7 @@ namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
             this.CreateDate = DateTime.Now;
             this.ShippingAddress = shippingAddress;
             this.ShippingPhoneNumber = shippingPhoneNumber;
-            this.OrderStatus = OrderStatus.Processing;
+            this.OrderStatus = OrderStatus.Placed;
             this.Value = value;
             this.OrderProducts = orderProducts;
         }

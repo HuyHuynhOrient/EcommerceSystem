@@ -4,6 +4,7 @@ namespace EcommerceProject.Application.Commands.Carts.PlaceOrder
 {
     public class PlaceOrderCommand : ICommand
     {
+        public Guid CustomerId { get; init; }
         public int CartId { get; init; }
         public string ShippingAddress { get; init; }
         public string ShippingPhoneNumber { get; init; }

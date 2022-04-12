@@ -6,7 +6,7 @@ namespace EcommerceProject.Application.Commands.Products.UpdateProduct
 {
     public class UpdateProductCommand : ICommand<int>
     {
-        public int ProductId { get; set; }
+        public int ProductId { get; init; }
         public string Name { get; init; }
         public MoneyValue Price { get; init; }
         public string TradeMark { get; init; }

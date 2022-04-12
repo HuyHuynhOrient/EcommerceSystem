@@ -5,6 +5,7 @@ using EcommerceProject.Application.Queries.Customers.GetCustomers;
 using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
 using EcommerceProject.Infrastructure.CQRS.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,7 +40,7 @@ namespace EcommerceProject.API.Controllers
             var result = await _commandBus.SendAsyns(command, cancellationToken);
             if (!result.IsSuccess) return BadRequest();
 
-            return Ok(result);
+            return Ok(new { customerId = result.Response.CustomerId, cartId = result.Response.CartId });
         }
 
         [HttpPost]
@@ -48,13 +49,14 @@ namespace EcommerceProject.API.Controllers
         {
             var command = new AuthenticateCommand
             {
+                CustomerId = request.CustomerId,
                 UserName = request.UserName,
                 RememberMe = request.RememberMe
             };
             var result = await _commandBus.SendAsyns(command, cancellationToken);
             if (!result.IsSuccess) return BadRequest();
 
-            return Ok(result);
+            return Ok(new { token = result.Response });
         }
     }
 }

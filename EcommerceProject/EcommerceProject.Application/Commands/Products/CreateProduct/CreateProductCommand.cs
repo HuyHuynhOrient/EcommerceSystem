@@ -3,7 +3,7 @@ using EcommerceProject.Infrastructure.CQRS.Command;
 
 namespace EcommerceProject.Application.Commands.Products.CreateProduct
 {
-    public class CreateProductCommand : ICommand
+    public class CreateProductCommand : ICommand<int>
     {
         public string Name { get; init; }
         public MoneyValue Price { get; init; }

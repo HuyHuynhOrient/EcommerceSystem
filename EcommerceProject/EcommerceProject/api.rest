@@ -1,93 +1,47 @@
 @url = https://localhost:7241/api
 
+
+# @name getCustomers
+GET {{url}}/customers
+###
+
 # @name registerCustomer
-POST {{url}}/customers
+POST {{url}}/customers/register
 content-type: application/json
 
 {
-  "name": "Huynh Duc Quang Huy",
-  "userName": "huy.huynhducquang",
-  "email": "huyyyy@mail.com"
+  "name": "Nguyen Van A",
+  "userName": "nguyenvana",
+  "email": "admin@mail.com"
 }
 ###
-
-@cartId = {{cartId.response.body.id}}
-
-# @name getCartDetails
-GET {{url}}/carts/{{cartId}}
-###
-
-# @name addProductToCart
-POST {{url}}/carts/{{cartId}}/cart-products
-content-type: application/json
-
-{
-  "productId": 1,
-  "quantity": 1
-}
-###
-
-@cartProductId = {{cartProductId.response.body.id}}
-
-# @name changeProductQuantity
-POST {{url}}/carts/{{cartId}}/cart-products/{{cartProductId}}
-content-type: application/json
-
-{
-  "productId": 1,
-  "quantity": 1
-}
-###
-
-# @name removeProductFromCart
-DELETE {{url}}/carts/{{cartId}}/cart-products/{{cartProductId}}
-###
-
-@cartId = {{cartId.response.body.id}}
-
-# @name placeOrder
-POST {{url}}/carts/{{cartId}}/place-order
-###
-
-@orderId = {{orderId.response.body.id}}
-
-# @name getOrderDetails
-GET {{url}}/orders/{{orderId}}
-###
-
-# @name changeOrderStatus
-PUT {{url}}/orders/{{orderId}}/change-order-status
-###
-
 
 # @name getProducts
-GET {{url}}/products
-###
-
-@productId = {{productId.response.body.id}}
-# @name getProductDetails
-GET {{url}}/products/{{productId}}
+GET {{url}}/products 
 ###
 
 # @name createProduct
-POST {{url}}/products/{{productId}}
+POST {{url}}/products
 content-type: application/json
 
 {
-  "name": "string",
+  "name": "Macbookk",
   "price": {
-    "value": 0,
-    "currency": "string"
+    "value": 100,
+    "currency": "USA"
   },
-  "tradeMark": "string",
-  "origin": "string",
-  "discription": "string"
+  "tradeMark": "Apple",
+  "origin": "China",
+  "discription": "This is a macbook."
 }
 ###
 
+
+@productId = 2
+
 # @name updateProduct
 PUT {{url}}/products/{{productId}}
-content-type: application/json
+Content-Type: application/json
 
 {
   "name": "string",
@@ -104,3 +58,66 @@ content-type: application/json
 # @name deleteProduct
 DELETE {{url}}/products/{{productId}}
 ###
+
+@cartId = 4
+@customerId = {{registerCustomer.response.body.customerId}}
+
+# @name getCartDetails
+GET {{url}}/customers/{{customerId}}/carts/{{cartId}}
+Content-Type: application/json
+###
+
+
+
+# @name addProductToCart
+POST {{url}}/customers/{{customerId}}/carts/{{cartId}}/products
+Content-Type: application/json
+
+{
+  "productId": 3,
+  "quantity": 1
+}
+###
+
+@cardProductId = 3
+
+# @name changeProductQuantity
+PUT {{url}}/customers/{{customerId}}/carts/{{cartId}}/products/{{cardProductId}}
+Content-Type: application/json
+
+{
+  "productId": 3,
+  "quantity": 5
+}
+###
+
+# @name removeProductFromCart
+DELETE {{url}}/customers/{{customerId}}/carts/{{cartId}}/products/{{cardProductId}}
+###
+
+# @name placeOrder
+POST {{url}}/customers/{{customerId}}/carts/{{cartId}}/place-order
+Content-Type: application/json
+
+{
+}
+###
+
+# @name getOrders
+GET {{url}}/customers/{{customerId}}/orders
+###
+
+@orderId = 4
+
+# @name getOrderDetails
+GET {{url}}/customers/{{customerId}}/orders/{{orderId}}
+###
+
+# @name changeOrderStatus
+PUT {{url}}/customers/{{customerId}}/orders/{{orderId}}/change-order-status
+Content-Type: application/json
+
+{
+  "orderStatus": 2
+}
+####

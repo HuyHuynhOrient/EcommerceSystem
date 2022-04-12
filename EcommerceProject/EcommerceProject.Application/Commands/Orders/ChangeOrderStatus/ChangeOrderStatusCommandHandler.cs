@@ -20,7 +20,7 @@ namespace EcommerceProject.Application.Commands.Orders.ChangeOrderStatus
             order.ChangeOrderStatus(command.OrderStatus);
             await _orderRepository.SaveAsync(order);
 
-            return CommandResult<int>.Success(command.OrderId);
+            return CommandResult<int>.Success(order.Id);
         }
     }
 }

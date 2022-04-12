@@ -7,6 +7,7 @@ using EcommerceProject.Application.Queries.Products.GetProducts;
 using EcommerceProject.Domain.SharedKermel;
 using EcommerceProject.Infrastructure.CQRS.Command;
 using EcommerceProject.Infrastructure.CQRS.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceProject.API.Controllers
@@ -55,7 +56,7 @@ namespace EcommerceProject.API.Controllers
                 Origin = request.Origin,
                 Discription = request.Discription
             };
-            var result = await _commandBus.SendAsync(command, cancellationToken);
+            var result = await _commandBus.SendAsyns(command, cancellationToken);
             if (!result.IsSuccess) return BadRequest();
 
             return Ok(result);

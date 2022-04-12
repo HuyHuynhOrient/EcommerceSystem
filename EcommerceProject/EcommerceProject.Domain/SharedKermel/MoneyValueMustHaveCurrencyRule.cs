@@ -6,9 +6,9 @@ namespace EcommerceProject.Domain.SharedKermel
     {
         private readonly string _currency;
 
-        public MoneyValueMustHaveCurrencyRule(string currentcy)
+        public MoneyValueMustHaveCurrencyRule(string currency)
         {
-            _currency = currentcy;
+            _currency = currency;
         }
 
         public bool IsBroken() => string.IsNullOrEmpty(_currency);

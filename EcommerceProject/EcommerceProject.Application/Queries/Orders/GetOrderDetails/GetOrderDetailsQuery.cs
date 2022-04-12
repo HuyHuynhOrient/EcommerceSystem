@@ -11,5 +11,6 @@ namespace EcommerceProject.Application.Queries.Orders.GetOrderDetails
     public class GetOrderDetailsQuery : IQuery<Order>
     {
         public int OrderId { get; init; }
+        public Guid CustomerId { get; init; }
     }
 }

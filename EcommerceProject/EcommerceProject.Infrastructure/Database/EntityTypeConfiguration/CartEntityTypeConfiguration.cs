@@ -18,9 +18,9 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
         {
             builder.ToTable("Cart");
 
-            builder.Property(p => p.Id).HasColumnName("CartId").UseIdentityColumn();
+            builder.Property(p => p.Id).HasColumnName("CartId");
             builder.HasKey(k => k.Id);
-            builder.Property(p => p.CustomerId).HasColumnName("CustomerId").IsRequired();
+            builder.Property(p => p.CustomerId).HasColumnName("CustomerId");
             builder.HasOne<Customer>().WithOne();
 
             builder.OwnsOne<MoneyValue>(own => own.Value, value => {
@@ -32,7 +32,7 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
                 od.WithOwner().HasForeignKey("CartId");
                 od.ToTable("CartProduct");
 
-                od.Property(p => p.Id).HasColumnName("CartProductId").UseIdentityColumn();
+                od.Property(p => p.Id).HasColumnName("CartProductId");
                 od.HasKey(k => k.Id);
                 od.Property<int>("CartId").HasColumnName("CartId").IsRequired();
                 od.Property(p => p.ProductId).HasColumnName("ProductId").IsRequired();

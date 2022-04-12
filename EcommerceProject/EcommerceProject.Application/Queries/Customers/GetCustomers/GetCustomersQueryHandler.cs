@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Application.Queries.Customers.GetCustomers
 {
-    public class GetCustomersQueryHandler : IQueryHandler<GetCustomersQuery, Customer>
+    public class GetCustomersQueryHandler : IQueryHandler<GetCustomersQuery, IEnumerable<Customer>>
     {
         private readonly ICustomerRepository _customerRepository;
 
@@ -17,9 +17,9 @@ namespace EcommerceProject.Application.Queries.Customers.GetCustomers
             _customerRepository = customerRepository;
         }
 
-        public async Task<Customer> Handle(GetCustomersQuery query, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Customer>> Handle(GetCustomersQuery query, CancellationToken cancellationToken)
         {
-            return await _customerRepository.FindOneAsync(query.CustomerId, cancellationToken);
+            return await _customerRepository.FindAllAsync(null, cancellationToken);
         }
     }
 }

@@ -4,6 +4,6 @@ namespace EcommerceProject.Application.Commands.Products.DeleteProduct
 {
     public class DeleteProductCommand : ICommand<int>
     {
-        public int ProductId { get; set; }
+        public int ProductId { get; init; }
     }
 }

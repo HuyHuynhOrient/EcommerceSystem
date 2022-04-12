@@ -5,7 +5,7 @@ using EcommerceProject.Infrastructure.CQRS.Command;
 
 namespace EcommerceProject.Application.Commands.Customers.RegisterCustomer
 {
-    public class RegisterCustomerCommandHandler : ICommandHandler<RegisterCustomerCommand, Guid>
+    public class RegisterCustomerCommandHandler : ICommandHandler<RegisterCustomerCommand, CustomerData>
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly ICartRepository _cartRepository;
@@ -16,11 +16,11 @@ namespace EcommerceProject.Application.Commands.Customers.RegisterCustomer
             _cartRepository = cartRepository;   
         }
 
-        public async Task<CommandResult<Guid>> Handle(RegisterCustomerCommand command, CancellationToken cancellationToken)
+        public async Task<CommandResult<CustomerData>> Handle(RegisterCustomerCommand command, CancellationToken cancellationToken)
         {
             var customers = await _customerRepository.FindAllAsync(null, cancellationToken);
             var customerExist = customers.FirstOrDefault(x => x.Email == command.Email);
-            if (customerExist != null) return CommandResult<Guid>.Error("Email already exists.");
+            if (customerExist != null) return CommandResult<CustomerData>.Error("Email already exists.");
             
             var customer = new Customer(command.Name, command.UserName, command.Email);
             await _customerRepository.AddAsync(customer, cancellationToken);
@@ -28,7 +28,9 @@ namespace EcommerceProject.Application.Commands.Customers.RegisterCustomer
             var cart = new Cart(customer.Id);
             await _cartRepository.AddAsync(cart, cancellationToken);
 
-            return CommandResult<Guid>.Success(customer.Id);
+            var customerData = new CustomerData(customer.Id, cart.Id);
+
+            return CommandResult<CustomerData>.Success(customerData);
         }
     }
 }

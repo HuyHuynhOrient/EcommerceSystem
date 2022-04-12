@@ -5,5 +5,6 @@ namespace EcommerceProject.Application.Queries.Orders.GetOrders
 {
     public class GetOrdersQuery : IQuery<IEnumerable<Order>>
     {
+        public Guid CustomerId { get; init; }
     }
 }

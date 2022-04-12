@@ -14,7 +14,7 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
         {
             builder.ToTable("Order");
 
-            builder.Property(p => p.Id).HasColumnName("OrderId").UseIdentityColumn();
+            builder.Property(p => p.Id).HasColumnName("OrderId");
             builder.HasKey(k => k.Id);
             builder.Property(p => p.CustomerId).HasColumnName("CustomerId").IsRequired();
             builder.HasOne<Customer>().WithMany();
@@ -32,7 +32,7 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
                 od.WithOwner().HasForeignKey("OrderId");
                 od.ToTable("OrderProduct");
 
-                od.Property(p => p.Id).HasColumnName("OrderProductId").UseIdentityColumn();
+                od.Property(p => p.Id).HasColumnName("OrderProductId");
                 od.HasKey(k => k.Id);
                 od.Property<int>("OrderId").HasColumnName("OrderId").IsRequired();
                 od.Property(p => p.ProductId).HasColumnName("ProductId").IsRequired();

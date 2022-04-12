@@ -5,6 +5,7 @@ namespace EcommerceProject.Application.Queries.Carts.GetCartDetails
 {
     public class GetCartDetailsQuery : IQuery<Cart>
     {
-        public int CartId { get; set; }
+        public int CartId { get; init; }
+        public Guid CustomerId { get; init; }
     }
 }

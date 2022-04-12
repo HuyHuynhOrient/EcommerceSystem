@@ -9,7 +9,8 @@ namespace EcommerceProject.Application.Commands.Customers.AuthenticateCustomer
 {
     public class AuthenticateCommand : ICommand<string>
     {
-        public string UserName { get; set; }
-        public bool RememberMe { get; set; }
+        public Guid CustomerId { get; init; }
+        public string UserName { get; init; }
+        public bool RememberMe { get; init; }
     }
 }

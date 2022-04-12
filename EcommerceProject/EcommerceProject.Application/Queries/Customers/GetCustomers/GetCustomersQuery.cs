@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Application.Queries.Customers.GetCustomers
 {
-    public class GetCustomersQuery : IQuery<Customer>
+    public class GetCustomersQuery : IQuery<IEnumerable<Customer>>
     {
-        public Guid CustomerId { get; set; }
     }
 }

@@ -26,10 +26,8 @@ namespace EcommerceProject.Application.Commands.Customers.AuthenticateCustomer
 
         public async Task<CommandResult<string>> Handle(AuthenticateCommand command, CancellationToken cancellationToken)
         {
-            var spec = new SpecificationBase<Customer>(x => x.UserName == command.UserName);
-            spec.Includes.Add(x => x.UserName);
+            var customer = await _customerRepository.FindOneAsync(command.CustomerId, cancellationToken);
 
-            var customer = await _customerRepository.FindOneAsync(spec, cancellationToken);
             if (customer == null) return CommandResult<string>.Error("Customer is not valid.");
 
             var claims = new[]

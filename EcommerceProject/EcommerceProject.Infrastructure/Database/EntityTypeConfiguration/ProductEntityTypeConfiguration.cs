@@ -10,8 +10,8 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable("Product");
-
-            builder.Property(p => p.Id).HasColumnName("ProductId").UseIdentityColumn();
+            
+            builder.Property(p => p.Id).HasColumnName("ProductId");
             builder.HasKey(k => k.Id);
 
             builder.Property(p => p.Name).HasColumnName("Name");
