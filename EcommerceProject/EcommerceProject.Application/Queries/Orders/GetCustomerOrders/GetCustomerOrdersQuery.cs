@@ -1,11 +1,10 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
-using EcommerceProject.Domain.SharedKermel;
 using EcommerceProject.Infrastructure.CQRS.Queries;
 
 namespace EcommerceProject.Application.Queries.Orders.GetOrders
 {
-    public class GetOrdersQuery : IQuery<IEnumerable<Order>>
+    public class GetCustomerOrdersQuery : IQuery<IEnumerable<Order>>
     {
-        public Guid UserId { get; init; }
+        public Guid CustomerId { get; init; }
     }
 }

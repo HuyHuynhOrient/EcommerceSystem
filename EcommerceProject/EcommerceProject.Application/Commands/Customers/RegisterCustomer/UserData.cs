@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Application.Commands.Customers.RegisterCustomer
 {
-    public class CustomerData
+    public class UserData
     {
-        public Guid CustomerId { get; }
+        public Guid UserId { get; }
         public int CartId { get; }
-        public CustomerData(Guid customerId, int cartId)
+        public UserData(Guid userId, int cartId)
         {
-            this.CustomerId = customerId;
+            this.UserId = userId;
             this.CartId = cartId;
         }
     }

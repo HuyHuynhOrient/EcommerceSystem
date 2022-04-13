@@ -1,6 +1,7 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CartAggregate;
 using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
+using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
 
 namespace EcommerceProject.Application.Commands.Carts.PlaceOrder
@@ -8,20 +9,22 @@ namespace EcommerceProject.Application.Commands.Carts.PlaceOrder
     internal class PlaceOrderCommandHandler : ICommandHandler<PlaceOrderCommand>
     {
         private readonly ICartRepository _cartRepository;
-        private readonly IUserRepository _customerRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IOrderRepository _orderRepository;
 
-        public PlaceOrderCommandHandler(ICartRepository cartRepository, IUserRepository customerRepository,
+        public PlaceOrderCommandHandler(ICartRepository cartRepository, IUserRepository userRepository,
                               IOrderRepository orderRepository)
         {
             _cartRepository = cartRepository;
-            _customerRepository = customerRepository;
+            _userRepository = userRepository;
             _orderRepository = orderRepository;
         }
+
         public async Task<CommandResult> Handle(PlaceOrderCommand command, CancellationToken cancellationToken)
         {
-            var customer = await _customerRepository.FindOneAsync(command.CustomerId, cancellationToken);
-            if (customer == null) return CommandResult<int>.Error("You do not have permission to execute this command.");
+            var customer = await _userRepository.FindOneAsync(command.CustomerId, cancellationToken);
+            if (customer == null || customer.UserRole != UserRole.Customer) 
+                return CommandResult<int>.Error("You do not have permission to execute this command.");
 
             var cart = await _cartRepository.FindOneAsync(command.CartId, cancellationToken);
             if (cart == null) return CommandResult<int>.Error("Your cart is not exist.");

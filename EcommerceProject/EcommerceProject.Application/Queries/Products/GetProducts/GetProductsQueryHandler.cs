@@ -18,11 +18,11 @@ namespace EcommerceProject.Application.Queries.Products.GetProducts
             var products = productRepo.ToList();
 
             var result = from product in products
-                         where query.Name == null || product.Name == query.Name
-                         where query.TradeMark == null || product.TradeMark == query.TradeMark
-                         where query.Origin == null || product.Origin == query.Origin
-                         where query.MaxValue == null || product.Price.Value <= query.MaxValue.Value
-                         where query.MinValue == null || product.Price.Value >= query.MinValue.Value
+                         where query.Name is null || product.Name == query.Name
+                         where query.TradeMark is null || product.TradeMark == query.TradeMark
+                         where query.Origin is null || product.Origin == query.Origin
+                         where query.MaxValue is null || product.Price.Value <= query.MaxValue.Value
+                         where query.MinValue is null || product.Price.Value >= query.MinValue.Value
                          select product;
 
             return result;

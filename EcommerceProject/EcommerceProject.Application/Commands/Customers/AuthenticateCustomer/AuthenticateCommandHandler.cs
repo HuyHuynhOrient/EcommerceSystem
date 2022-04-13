@@ -1,16 +1,11 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Domain.AggregatesModel.UserAggregate;
-using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.CQRS.Command;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EcommerceProject.Application.Commands.Customers.AuthenticateCustomer
 {

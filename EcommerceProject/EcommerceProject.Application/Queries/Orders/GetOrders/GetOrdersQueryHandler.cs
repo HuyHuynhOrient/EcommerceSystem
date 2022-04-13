@@ -1,29 +1,32 @@
-﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
-using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
-using EcommerceProject.Domain.SeedWork;
+﻿using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
 using EcommerceProject.Infrastructure.CQRS.Queries;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace EcommerceProject.Application.Queries.Orders.GetOrders
 {
     public class GetOrdersQueryHandler : IQueryHandler<GetOrdersQuery, IEnumerable<Order>>
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly IUserRepository _customerRepository;
 
-        public GetOrdersQueryHandler(IOrderRepository orderRepository, IUserRepository customerRepository)
+        public GetOrdersQueryHandler(IOrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
-            _customerRepository = customerRepository;
         }
 
-        public async Task<IEnumerable<Order>> Handle(GetOrdersQuery query, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Order>> Handle(GetOrdersQuery request, CancellationToken cancellationToken)
         {
-            var cusomter = await _customerRepository.FindOneAsync(query.CustomerId, cancellationToken);
-            if (cusomter == null) return null;
+            var ordersRepo = await _orderRepository.FindAllAsync(null, cancellationToken);
+            var orders = ordersRepo.ToList();
 
-            var spec = new SpecificationBase<Order>(x => x.UserId == query.CustomerId);
-            
-            return await _orderRepository.FindAllAsync(spec, cancellationToken);
+            var result = from order in orders
+                         where request.UserId == Guid.Empty || order.UserId == request.UserId
+                         select order;
+
+            return result;
         }
     }
 }

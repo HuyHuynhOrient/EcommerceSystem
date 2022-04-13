@@ -2,11 +2,8 @@
 using EcommerceProject.Application.Commands.Customers.AuthenticateCustomer;
 using EcommerceProject.Application.Commands.Customers.RegisterCustomer;
 using EcommerceProject.Application.Queries.Customers.GetCustomers;
-using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
 using EcommerceProject.Infrastructure.CQRS.Queries;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceProject.API.Controllers
@@ -40,7 +37,7 @@ namespace EcommerceProject.API.Controllers
             var result = await _commandBus.SendAsyns(command, cancellationToken);
             if (!result.IsSuccess) return BadRequest();
 
-            return Ok(new { customerId = result.Response.CustomerId, cartId = result.Response.CartId });
+            return Ok(new { customerId = result.Response.UserId, cartId = result.Response.CartId });
         }
 
         [HttpPost]

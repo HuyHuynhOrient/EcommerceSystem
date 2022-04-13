@@ -5,13 +5,12 @@ using EcommerceProject.Application.Queries.Orders.GetOrders;
 using EcommerceProject.Infrastructure.CQRS.Command;
 using EcommerceProject.Infrastructure.CQRS.Queries;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceProject.API.Controllers
 {
-    [Authorize]
-    [Route("api/customers/{customerId}/orders")]
+    //[Authorize]
+    [Route("api/orders")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -25,9 +24,20 @@ namespace EcommerceProject.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetOrders([FromRoute] Guid customerId, CancellationToken cancellationToken)
+        [Route("get-all")]
+        public async Task<IActionResult> GetOrders([FromQuery] GetOrdersQuery request, CancellationToken cancellationToken)
         {
-            var query = new GetOrdersQuery { CustomerId = customerId };
+            var query = new GetOrdersQuery { UserId = request.UserId };
+            var result = await _queryBus.SendAsync(query, cancellationToken);
+            if (result is null) return BadRequest();
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCustomerOrders([FromQuery] Guid customerId, CancellationToken cancellationToken)
+        {
+            var query = new GetCustomerOrdersQuery { CustomerId = customerId };
             var result = await _queryBus.SendAsync(query, cancellationToken);
             if (result is null) return BadRequest();
 
@@ -36,7 +46,7 @@ namespace EcommerceProject.API.Controllers
         
         [HttpGet]
         [Route("{orderId}")]
-        public async Task<IActionResult> GetOrderDetails([FromRoute] Guid customerId
+        public async Task<IActionResult> GetOrderDetails([FromQuery] Guid customerId
                                                 , [FromRoute] int orderId
                                                 , CancellationToken cancellationToken)
         {
@@ -52,7 +62,7 @@ namespace EcommerceProject.API.Controllers
         }
 
         [HttpPut]
-        [Route("{orderId}/change-order-status")]
+        [Route("{orderId}/change-orderstatus")]
         public async Task<IActionResult> ChangeOrderStatus([FromRoute] int orderId
                                 , [FromBody] ChangeOrderStatusRequest request
                                 , CancellationToken cancellationToken)

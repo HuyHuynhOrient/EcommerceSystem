@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceProject.API.Controllers
 {
-    [Authorize]
-    [Route("api/customers/{customerId}/carts")]
+    //[Authorize]
+    [Route("api/customers/{customerId}/cart")]
     [ApiController]
     public class CartController : ControllerBase
     {
@@ -26,15 +26,14 @@ namespace EcommerceProject.API.Controllers
         }
 
         [HttpGet]
-        [Route("{cartId}")]
-        public async Task<IActionResult> GetCartDetails([FromRoute] int cartId
-                                                , [FromRoute] Guid customerId
+        public async Task<IActionResult> GetCartDetails([FromRoute] Guid customerId
+                                                , [FromQuery] int cartId
                                                 , CancellationToken cancellationToken)
         {
             var query = new GetCartDetailsQuery 
             {
-                CartId = cartId,
-                CustomerId = customerId
+                CustomerId = customerId,
+                CartId = cartId
             };
             var result = await _queryBus.SendAsync(query, cancellationToken);
             if (result is null) return NotFound();
@@ -43,11 +42,11 @@ namespace EcommerceProject.API.Controllers
         }
 
         [HttpPost]
-        [Route("{cartId}/products")]
-        public async Task<IActionResult> AddProductToCart([FromRoute] int cartId
-                            , [FromRoute] Guid customerId
-                            , [FromBody] AddProductToCartRequest request
-                            , CancellationToken cancellationToken)
+        [Route("products")]
+        public async Task<IActionResult> AddProductToCart([FromRoute] Guid customerId
+                                            , [FromQuery] int cartId
+                                            , [FromBody] AddProductToCartRequest request
+                                            , CancellationToken cancellationToken)
         {
             var command = new AddProductToCartCommand
             {
@@ -63,10 +62,10 @@ namespace EcommerceProject.API.Controllers
         }
 
         [HttpPut]
-        [Route("{cartId}/products/{cartProductId}")]
+        [Route("products")]
         public async Task<IActionResult> ChangeProductQuantity([FromRoute] Guid customerId
-                                                    , [FromRoute] int cartId
-                                                    , [FromRoute] int cartProductId
+                                                    , [FromQuery] int cartId
+                                                    , [FromQuery] int cartProductId
                                                     , [FromBody] ChangeProductQuantityRequest request
                                                     , CancellationToken cancellationToken)
         {
@@ -85,11 +84,11 @@ namespace EcommerceProject.API.Controllers
         }
 
         [HttpDelete]
-        [Route("{cartId}/products/{cartProductId}")]
+        [Route("products")]
         public async Task<IActionResult> RemoveProductFromCart([FromRoute] Guid customerId
-                            , [FromRoute] int cartId
-                            , [FromRoute] int cartProductId
-                            , CancellationToken cancellationToken)
+                                            , [FromQuery] int cartId
+                                            , [FromQuery] int cartProductId
+                                            , CancellationToken cancellationToken)
         {
             var command = new RemoveProductFromCartCommand 
             { 
@@ -104,11 +103,11 @@ namespace EcommerceProject.API.Controllers
         }
 
         [HttpPost]
-        [Route("{cartId}/place-order")]
+        [Route("place-order")]
         public async Task<IActionResult> PlaceOrder([FromRoute] Guid customerId
-                            , [FromRoute] int cartId
-                            , [FromBody] PlaceOrderRequest request
-                            , CancellationToken cancellationToken)
+                                            , [FromQuery] int cartId
+                                            , [FromBody] PlaceOrderRequest request
+                                            , CancellationToken cancellationToken)
         {
             var command = new PlaceOrderCommand
             {

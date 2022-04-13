@@ -1,6 +1,7 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CartAggregate;
 using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
+using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
 
 namespace EcommerceProject.Application.Commands.Carts.AddProductToCart
@@ -8,21 +9,22 @@ namespace EcommerceProject.Application.Commands.Carts.AddProductToCart
     public class AddProductToCartCommandHandler : ICommandHandler<AddProductToCartCommand, int>
     {
         private readonly ICartRepository _cartRepository;
-        private readonly IUserRepository _customerRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IProductRepository _productRepository;
 
-        public AddProductToCartCommandHandler(ICartRepository cartRepository, IUserRepository customerRepository,
+        public AddProductToCartCommandHandler(ICartRepository cartRepository, IUserRepository userRepository,
                                 IProductRepository productRepository)
         {
             _cartRepository = cartRepository;
-            _customerRepository = customerRepository;
+            _userRepository = userRepository;
             _productRepository = productRepository;
         }
 
         public async Task<CommandResult<int>> Handle(AddProductToCartCommand command, CancellationToken cancellationToken)
         {
-            var customer = await _customerRepository.FindOneAsync(command.CustomerId, cancellationToken);
-            if (customer == null) return CommandResult<int>.Error("You do not have permission to execute this command.");
+            var customer = await _userRepository.FindOneAsync(command.CustomerId, cancellationToken);
+            if (customer == null || customer.UserRole != UserRole.Customer) 
+                return CommandResult<int>.Error("You do not have permission to execute this command.");
 
             var cart = await _cartRepository.FindOneAsync(command.CartId, cancellationToken);
             if (cart == null) return CommandResult<int>.Error("Your cart is not exist.");
