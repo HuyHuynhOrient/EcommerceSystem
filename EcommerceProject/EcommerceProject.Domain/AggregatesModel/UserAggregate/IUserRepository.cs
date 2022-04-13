@@ -2,7 +2,7 @@
 
 namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate
 {
-    public interface ICustomerRepository : IBaseRepository<Customer, Guid>
+    public interface IUserRepository : IBaseRepository<User, Guid>
     {
     }
 }

@@ -8,10 +8,10 @@ namespace EcommerceProject.Application.Commands.Carts.ChangeProductQuantity
     public class ChangeProductQuantityCommandHandler : ICommandHandler<ChangeProductQuantityCommand, int>
     {
         private readonly ICartRepository _cartRepository;
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IUserRepository _customerRepository;
         private readonly IProductRepository _productRepository;
 
-        public ChangeProductQuantityCommandHandler(ICartRepository cartRepository, ICustomerRepository customerRepository,
+        public ChangeProductQuantityCommandHandler(ICartRepository cartRepository, IUserRepository customerRepository,
                               IProductRepository productRepository)
         {
             _cartRepository = cartRepository;

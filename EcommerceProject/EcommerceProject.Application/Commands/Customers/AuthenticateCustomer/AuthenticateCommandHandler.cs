@@ -1,4 +1,5 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
+using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.CQRS.Command;
 using Microsoft.Extensions.Configuration;
@@ -15,24 +16,25 @@ namespace EcommerceProject.Application.Commands.Customers.AuthenticateCustomer
 {
     public class AuthenticateCommandHandler : ICommandHandler<AuthenticateCommand, string>
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IConfiguration _config;
 
-        public AuthenticateCommandHandler(ICustomerRepository customerRepository, IConfiguration config)
+        public AuthenticateCommandHandler(IUserRepository userRepository, IConfiguration config)
         {
-            _customerRepository = customerRepository;
+            _userRepository = userRepository;
             _config = config;
         }
 
         public async Task<CommandResult<string>> Handle(AuthenticateCommand command, CancellationToken cancellationToken)
         {
-            var customer = await _customerRepository.FindOneAsync(command.CustomerId, cancellationToken);
+            var users = await _userRepository.FindAllAsync(null, cancellationToken);
+            var customer = users.FirstOrDefault(x => x.UserName == command.UserName && x.Password == command.Password && x.UserRole == UserRole.Customer);
 
             if (customer == null) return CommandResult<string>.Error("Customer is not valid.");
 
             var claims = new[]
              {
-                new Claim(ClaimTypes.GivenName, command.UserName),
+                new Claim(ClaimTypes.GivenName, customer.UserName)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));

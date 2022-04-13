@@ -8,10 +8,10 @@ namespace EcommerceProject.Application.Commands.Carts.AddProductToCart
     public class AddProductToCartCommandHandler : ICommandHandler<AddProductToCartCommand, int>
     {
         private readonly ICartRepository _cartRepository;
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IUserRepository _customerRepository;
         private readonly IProductRepository _productRepository;
 
-        public AddProductToCartCommandHandler(ICartRepository cartRepository, ICustomerRepository customerRepository,
+        public AddProductToCartCommandHandler(ICartRepository cartRepository, IUserRepository customerRepository,
                                 IProductRepository productRepository)
         {
             _cartRepository = cartRepository;

@@ -16,8 +16,8 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
 
             builder.Property(p => p.Id).HasColumnName("OrderId");
             builder.HasKey(k => k.Id);
-            builder.Property(p => p.CustomerId).HasColumnName("CustomerId").IsRequired();
-            builder.HasOne<Customer>().WithMany();
+            builder.Property(p => p.UserId).HasColumnName("UserId");
+            builder.HasOne<User>().WithMany();
 
             builder.Property(p => p.CreateDate).HasColumnName("CreateDate");
             builder.Property(p => p.ShippingAddress).HasColumnName("ShippingAddress");

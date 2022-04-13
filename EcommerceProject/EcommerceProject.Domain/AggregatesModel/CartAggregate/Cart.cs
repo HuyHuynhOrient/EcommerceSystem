@@ -5,7 +5,7 @@ namespace EcommerceProject.Domain.AggregatesModel.CartAggregate
 {
     public class Cart : AggregateRoot<int>
     {
-        public Guid CustomerId { get; }
+        public Guid UserId { get; }
         public MoneyValue Value { get; private set; }
         public List<CartProduct> CartProducts { get; private set; }
 
@@ -13,9 +13,9 @@ namespace EcommerceProject.Domain.AggregatesModel.CartAggregate
         {
         }
 
-        public Cart(Guid customerId)
+        public Cart(Guid userId)
         {
-            this.CustomerId = customerId;
+            this.UserId = userId;
             this.Value = null;
             this.CartProducts = new List<CartProduct>();
         }

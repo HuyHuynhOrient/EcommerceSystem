@@ -6,7 +6,7 @@ namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
 {
     public class Order : AggregateRoot<int>
     {
-        public Guid CustomerId { get; }
+        public Guid UserId { get; }
         public DateTime CreateDate { get; }
         public string ShippingAddress { get; }
         public string ShippingPhoneNumber { get; }
@@ -18,9 +18,9 @@ namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
         {
         }
 
-        public Order(Guid customerId, string shippingAddress, string shippingPhoneNumber, MoneyValue value, List<OrderProduct> orderProducts)
+        public Order(Guid userId, string shippingAddress, string shippingPhoneNumber, MoneyValue value, List<OrderProduct> orderProducts)
         {
-            this.CustomerId = customerId;
+            this.UserId = userId;
             this.CreateDate = DateTime.Now;
             this.ShippingAddress = shippingAddress;
             this.ShippingPhoneNumber = shippingPhoneNumber;

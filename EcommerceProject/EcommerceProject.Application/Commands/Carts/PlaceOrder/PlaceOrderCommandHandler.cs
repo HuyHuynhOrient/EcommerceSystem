@@ -8,10 +8,10 @@ namespace EcommerceProject.Application.Commands.Carts.PlaceOrder
     internal class PlaceOrderCommandHandler : ICommandHandler<PlaceOrderCommand>
     {
         private readonly ICartRepository _cartRepository;
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IUserRepository _customerRepository;
         private readonly IOrderRepository _orderRepository;
 
-        public PlaceOrderCommandHandler(ICartRepository cartRepository, ICustomerRepository customerRepository,
+        public PlaceOrderCommandHandler(ICartRepository cartRepository, IUserRepository customerRepository,
                               IOrderRepository orderRepository)
         {
             _cartRepository = cartRepository;
@@ -34,7 +34,7 @@ namespace EcommerceProject.Application.Commands.Carts.PlaceOrder
                 orderProducts.Add(orderProduct);
             }
             
-            var order = new Order(cart.CustomerId, command.ShippingAddress, command.ShippingPhoneNumber, cart.Value, orderProducts);
+            var order = new Order(cart.UserId, command.ShippingAddress, command.ShippingPhoneNumber, cart.Value, orderProducts);
             await _orderRepository.AddAsync(order, cancellationToken);
 
             cart.RemoveAllCartProduct();

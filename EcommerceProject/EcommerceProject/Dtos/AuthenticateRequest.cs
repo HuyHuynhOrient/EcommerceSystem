@@ -2,8 +2,8 @@
 {
     public class AuthenticateRequest
     {
-        public Guid CustomerId { get; init; }
-        public string UserName { get; set; }
-        public bool RememberMe { get; set; }
+        public string UserName { get; init; }
+        public string Password { get; init; }
+        public bool RememberMe { get; init; }
     }
 }

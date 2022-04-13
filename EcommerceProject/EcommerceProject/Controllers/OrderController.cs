@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceProject.API.Controllers
 {
+    [Authorize]
     [Route("api/customers/{customerId}/orders")]
     [ApiController]
     public class OrderController : ControllerBase

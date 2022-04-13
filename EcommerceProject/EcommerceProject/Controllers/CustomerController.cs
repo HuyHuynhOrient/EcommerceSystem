@@ -36,7 +36,7 @@ namespace EcommerceProject.API.Controllers
         [Route("register")]
         public async Task<IActionResult> RegisterCustomer([FromBody] RegisterCustomerRequest request, CancellationToken cancellationToken)
          {
-            var command = new RegisterCustomerCommand { Name = request.Name, UserName = request.UserName, Email = request.Email };
+            var command = new RegisterCustomerCommand { Name = request.Name, UserName = request.UserName, Email = request.Email , Password = request.Password};
             var result = await _commandBus.SendAsyns(command, cancellationToken);
             if (!result.IsSuccess) return BadRequest();
 
@@ -49,7 +49,7 @@ namespace EcommerceProject.API.Controllers
         {
             var command = new AuthenticateCommand
             {
-                CustomerId = request.CustomerId,
+                Password = request.Password,
                 UserName = request.UserName,
                 RememberMe = request.RememberMe
             };

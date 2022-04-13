@@ -20,8 +20,8 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
 
             builder.Property(p => p.Id).HasColumnName("CartId");
             builder.HasKey(k => k.Id);
-            builder.Property(p => p.CustomerId).HasColumnName("CustomerId");
-            builder.HasOne<Customer>().WithOne();
+            builder.Property(p => p.UserId).HasColumnName("UserId");
+            builder.HasOne<User>().WithOne();
 
             builder.OwnsOne<MoneyValue>(own => own.Value, value => {
                 value.Property(p => p.Currency).HasColumnName("Currency");

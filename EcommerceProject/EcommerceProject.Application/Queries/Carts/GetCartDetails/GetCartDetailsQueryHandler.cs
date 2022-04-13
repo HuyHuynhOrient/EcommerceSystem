@@ -7,9 +7,9 @@ namespace EcommerceProject.Application.Queries.Carts.GetCartDetails
     public class GetCartDetailsQueryHandler : IQueryHandler<GetCartDetailsQuery, Cart>
     {
         private readonly ICartRepository _cartRepository;
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IUserRepository _customerRepository;
 
-        public GetCartDetailsQueryHandler(ICartRepository cartRepository, ICustomerRepository customerRepository)
+        public GetCartDetailsQueryHandler(ICartRepository cartRepository, IUserRepository customerRepository)
         {
             _cartRepository = cartRepository;
             _customerRepository = customerRepository;

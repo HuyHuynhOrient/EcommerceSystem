@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceProject.API.Controllers
 {
+    [Authorize]
     [Route("api/products")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -26,9 +27,21 @@ namespace EcommerceProject.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetProducts([FromQuery] GetProductsRequest request, CancellationToken cancellationToken)
         {
-            var query = new GetProductsQuery();
+            MoneyValue maxValue = null;
+            MoneyValue minValue = null;
+            if (request.MaxValue != 0) maxValue = new MoneyValue(request.MaxValue, request.Currency);
+            if (request.MinValue != 0) minValue = new MoneyValue(request.MinValue, request.Currency);
+
+            var query = new GetProductsQuery()
+            {
+                Name = request.Name,
+                Origin = request.Origin,
+                TradeMark = request.TradeMark,
+                MaxValue = maxValue,
+                MinValue = minValue
+            };
             var result = await _queryBus.SendAsync(query, cancellationToken);
 
             return Ok(result);

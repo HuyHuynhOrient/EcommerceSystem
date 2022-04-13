@@ -3,9 +3,9 @@ using EcommerceProject.Infrastructure.Database;
 
 namespace EcommerceProject.Infrastructure.Domain.Repository
 {
-    internal class CustomerRepository : BaseRepository<Customer, Guid>, ICustomerRepository
+    internal class UserRepository : BaseRepository<User, Guid>, IUserRepository
     {
-        public CustomerRepository(AppDbContext context) : base(context)
+        public UserRepository(AppDbContext context) : base(context)
         {
         }
     }

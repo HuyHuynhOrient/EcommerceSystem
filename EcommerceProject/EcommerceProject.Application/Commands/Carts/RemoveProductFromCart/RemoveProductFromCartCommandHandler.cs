@@ -7,9 +7,9 @@ namespace EcommerceProject.Application.Commands.Carts.RemoveProductFromCart
     public class RemoveProductFromCartCommandHandler : ICommandHandler<RemoveProductFromCartCommand, int>
     {
         private readonly ICartRepository _cartRepository;
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IUserRepository _customerRepository;
 
-        public RemoveProductFromCartCommandHandler(ICartRepository cartRepository, ICustomerRepository customerRepository)
+        public RemoveProductFromCartCommandHandler(ICartRepository cartRepository, IUserRepository customerRepository)
         {
             _cartRepository = cartRepository;
             _customerRepository = customerRepository;

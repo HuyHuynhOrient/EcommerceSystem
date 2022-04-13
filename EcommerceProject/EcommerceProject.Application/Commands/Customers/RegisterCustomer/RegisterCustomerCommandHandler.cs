@@ -1,16 +1,17 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CartAggregate;
 using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
+using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
 
 namespace EcommerceProject.Application.Commands.Customers.RegisterCustomer
 {
     public class RegisterCustomerCommandHandler : ICommandHandler<RegisterCustomerCommand, CustomerData>
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IUserRepository _customerRepository;
         private readonly ICartRepository _cartRepository;
 
-        public RegisterCustomerCommandHandler(ICustomerRepository customerRepository, ICartRepository cartRepository)
+        public RegisterCustomerCommandHandler(IUserRepository customerRepository, ICartRepository cartRepository)
         {
             _customerRepository = customerRepository;
             _cartRepository = cartRepository;   
@@ -19,10 +20,10 @@ namespace EcommerceProject.Application.Commands.Customers.RegisterCustomer
         public async Task<CommandResult<CustomerData>> Handle(RegisterCustomerCommand command, CancellationToken cancellationToken)
         {
             var customers = await _customerRepository.FindAllAsync(null, cancellationToken);
-            var customerExist = customers.FirstOrDefault(x => x.Email == command.Email);
-            if (customerExist != null) return CommandResult<CustomerData>.Error("Email already exists.");
+            var customerExist = customers.FirstOrDefault(x => x.UserName == command.UserName);
+            if (customerExist != null) return CommandResult<CustomerData>.Error("UserName already exists.");
             
-            var customer = new Customer(command.Name, command.UserName, command.Email);
+            var customer = new User(command.UserName, command.Password, command.Name, command.Email, UserRole.Customer);
             await _customerRepository.AddAsync(customer, cancellationToken);
 
             var cart = new Cart(customer.Id);

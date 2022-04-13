@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceProject.API.Controllers
 {
+    [Authorize]
     [Route("api/customers/{customerId}/carts")]
     [ApiController]
     public class CartController : ControllerBase

@@ -12,9 +12,9 @@ namespace EcommerceProject.Application.Queries.Orders.GetOrderDetails
     public class GetOrderDetailsQueryHandler : IQueryHandler<GetOrderDetailsQuery, Order>
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IUserRepository _customerRepository;
 
-        public GetOrderDetailsQueryHandler(IOrderRepository orderRepository, ICustomerRepository customerRepository)
+        public GetOrderDetailsQueryHandler(IOrderRepository orderRepository, IUserRepository customerRepository)
         {
             _orderRepository = orderRepository;
             _customerRepository = customerRepository;

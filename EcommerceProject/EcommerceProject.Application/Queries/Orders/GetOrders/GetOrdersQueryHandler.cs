@@ -8,9 +8,9 @@ namespace EcommerceProject.Application.Queries.Orders.GetOrders
     public class GetOrdersQueryHandler : IQueryHandler<GetOrdersQuery, IEnumerable<Order>>
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IUserRepository _customerRepository;
 
-        public GetOrdersQueryHandler(IOrderRepository orderRepository, ICustomerRepository customerRepository)
+        public GetOrdersQueryHandler(IOrderRepository orderRepository, IUserRepository customerRepository)
         {
             _orderRepository = orderRepository;
             _customerRepository = customerRepository;
@@ -21,7 +21,7 @@ namespace EcommerceProject.Application.Queries.Orders.GetOrders
             var cusomter = await _customerRepository.FindOneAsync(query.CustomerId, cancellationToken);
             if (cusomter == null) return null;
 
-            var spec = new SpecificationBase<Order>(x => x.CustomerId == query.CustomerId);
+            var spec = new SpecificationBase<Order>(x => x.UserId == query.CustomerId);
             
             return await _orderRepository.FindAllAsync(spec, cancellationToken);
         }

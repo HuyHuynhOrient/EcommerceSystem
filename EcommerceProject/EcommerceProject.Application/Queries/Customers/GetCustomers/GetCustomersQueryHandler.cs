@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Application.Queries.Customers.GetCustomers
 {
-    public class GetCustomersQueryHandler : IQueryHandler<GetCustomersQuery, IEnumerable<Customer>>
+    public class GetCustomersQueryHandler : IQueryHandler<GetCustomersQuery, IEnumerable<User>>
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IUserRepository _customerRepository;
 
-        public GetCustomersQueryHandler(ICustomerRepository customerRepository)
+        public GetCustomersQueryHandler(IUserRepository customerRepository)
         {
             _customerRepository = customerRepository;
         }
 
-        public async Task<IEnumerable<Customer>> Handle(GetCustomersQuery query, CancellationToken cancellationToken)
+        public async Task<IEnumerable<User>> Handle(GetCustomersQuery query, CancellationToken cancellationToken)
         {
             return await _customerRepository.FindAllAsync(null, cancellationToken);
         }
