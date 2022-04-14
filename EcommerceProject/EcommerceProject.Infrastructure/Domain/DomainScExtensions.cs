@@ -3,6 +3,7 @@ using EcommerceProject.Domain.AggregatesModel.CartAggregate;
 using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
 using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
+using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.Database;
 using EcommerceProject.Infrastructure.Domain;
@@ -28,6 +29,7 @@ namespace NetProject.Infrastructure.Domain
             });
             services.AddScoped<IUnitOfWork>(sp => new UnitOfWork((sp.GetRequiredService<AppDbContext>())));
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ICartRepository, CartRepository>();

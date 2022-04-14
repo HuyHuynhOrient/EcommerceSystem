@@ -9,19 +9,19 @@ namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate
         public string UserName { get; }
         public string Password { get; }
         public string Email { get; }
-        public UserRole UserRole { get; }
+        public Role Role { get; }
 
         private User()
         {
         }
 
-        public User(string userName, string passWord, string name, string email, UserRole userRole)
+        public User(string userName, string passWord, string name, string email, Role role)
         {
             this.UserName = userName;
             this.Password = passWord;
             this.Name = name;
             this.Email = email;
-            this.UserRole = userRole;
+            this.Role = role;
         }
     }
 }

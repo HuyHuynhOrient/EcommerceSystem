@@ -16,6 +16,7 @@ namespace EcommerceProject.Application.Commands.Products.UpdateProduct
         {
             var product = await _productRepository.FindOneAsync(command.ProductId, cancellationToken);
             if (product is null) return CommandResult<int>.Error($"Product with id {command.ProductId} does not exist.");
+
             product.UpdateProduct(command.Name, command.Price, command.TradeMark, command.Origin, command.Discription);
             await _productRepository.SaveAsync(product, cancellationToken);
 

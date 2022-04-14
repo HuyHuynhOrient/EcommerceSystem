@@ -1,6 +1,6 @@
 ﻿namespace EcommerceProject.API.Dtos
 {
-    public class RegisterCustomerRequest
+    public class RegisterUserRequest
     {
         public string UserName { get; init; }
         public string Password { get; init; }

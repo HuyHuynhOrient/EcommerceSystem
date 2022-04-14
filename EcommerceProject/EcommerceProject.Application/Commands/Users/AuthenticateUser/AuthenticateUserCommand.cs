@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.Application.Commands.Customers.AuthenticateCustomer
 {
-    public class AuthenticateCommand : ICommand<string>
+    public class AuthenticateUSerCommand : ICommand<string>
     {
         public string UserName { get; init; }
         public string Password { get; init; }

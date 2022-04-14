@@ -19,11 +19,5 @@ namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
             this.Quantity = quantity;
             this.Value = value;
         }
-
-        //public void ChangeQuantity(int quantity, MoneyValue value)
-        //{
-        //    this.Quantity = quantity;
-        //    this.Value = value;
-        //}
     }
 }

@@ -1,5 +1,6 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Domain.AggregatesModel.UserAggregate;
+using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.CQRS.Command;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -9,27 +10,29 @@ using System.Text;
 
 namespace EcommerceProject.Application.Commands.Customers.AuthenticateCustomer
 {
-    public class AuthenticateCommandHandler : ICommandHandler<AuthenticateCommand, string>
+    public class AuthenticateUserCommandHandler : ICommandHandler<AuthenticateUSerCommand, string>
     {
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _config;
 
-        public AuthenticateCommandHandler(IUserRepository userRepository, IConfiguration config)
+        public AuthenticateUserCommandHandler(IUserRepository userRepository, IConfiguration config)
         {
             _userRepository = userRepository;
             _config = config;
         }
 
-        public async Task<CommandResult<string>> Handle(AuthenticateCommand command, CancellationToken cancellationToken)
+        public async Task<CommandResult<string>> Handle(AuthenticateUSerCommand command, CancellationToken cancellationToken)
         {
-            var users = await _userRepository.FindAllAsync(null, cancellationToken);
-            var customer = users.FirstOrDefault(x => x.UserName == command.UserName && x.Password == command.Password && x.UserRole == UserRole.Customer);
-
-            if (customer == null) return CommandResult<string>.Error("Customer is not valid.");
+            var spec = new SpecificationBase<User>(x => x.UserName == command.UserName && x.Password == command.Password);
+            spec.Includes.Add(x => x.Role);
+            var user = await _userRepository.FindOneAsync(spec, cancellationToken);
+            if (user == null) return CommandResult<string>.Error("Customer is not valid.");
 
             var claims = new[]
              {
-                new Claim(ClaimTypes.GivenName, customer.UserName)
+                new Claim(ClaimTypes.NameIdentifier, Convert.ToString(user.Id)),
+                new Claim(ClaimTypes.GivenName, user.UserName),
+                new Claim(ClaimTypes.Role, user.Role.Name)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
@@ -42,7 +45,6 @@ namespace EcommerceProject.Application.Commands.Customers.AuthenticateCustomer
                 signingCredentials: creds);
             var JwTToken = new JwtSecurityTokenHandler().WriteToken(token);
             return CommandResult<string>.Success(JwTToken);
-
         }
     }
 }

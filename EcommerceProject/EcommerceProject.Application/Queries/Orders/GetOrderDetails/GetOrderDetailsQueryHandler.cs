@@ -1,29 +1,24 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
 using EcommerceProject.Infrastructure.CQRS.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EcommerceProject.Application.Queries.Orders.GetOrderDetails
 {
     public class GetOrderDetailsQueryHandler : IQueryHandler<GetOrderDetailsQuery, Order>
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly IUserRepository _customerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public GetOrderDetailsQueryHandler(IOrderRepository orderRepository, IUserRepository customerRepository)
+        public GetOrderDetailsQueryHandler(IOrderRepository orderRepository, IUserRepository userRepository)
         {
             _orderRepository = orderRepository;
-            _customerRepository = customerRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<Order> Handle(GetOrderDetailsQuery query, CancellationToken cancellationToken)
         {
-            var customer = await _customerRepository.FindOneAsync(query.CustomerId, cancellationToken);
-            if (customer == null) return null;
+            var user = await _userRepository.FindOneAsync(query.UserId, cancellationToken);
+            if (user == null) return null;
 
             return await _orderRepository.FindOneAsync(query.OrderId, cancellationToken);
         }

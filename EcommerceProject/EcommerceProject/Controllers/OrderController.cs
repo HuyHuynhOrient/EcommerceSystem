@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceProject.API.Controllers
 {
-    //[Authorize]
+    
     [Route("api/orders")]
     [ApiController]
     public class OrderController : ControllerBase
@@ -25,6 +25,7 @@ namespace EcommerceProject.API.Controllers
 
         [HttpGet]
         [Route("get-all")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetOrders([FromQuery] GetOrdersQuery request, CancellationToken cancellationToken)
         {
             var query = new GetOrdersQuery { UserId = request.UserId };
@@ -35,9 +36,10 @@ namespace EcommerceProject.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> GetCustomerOrders([FromQuery] Guid customerId, CancellationToken cancellationToken)
         {
-            var query = new GetCustomerOrdersQuery { CustomerId = customerId };
+            var query = new GetCustomerOrdersQuery { UserId = customerId };
             var result = await _queryBus.SendAsync(query, cancellationToken);
             if (result is null) return BadRequest();
 
@@ -46,13 +48,14 @@ namespace EcommerceProject.API.Controllers
         
         [HttpGet]
         [Route("{orderId}")]
+        [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> GetOrderDetails([FromQuery] Guid customerId
-                                                , [FromRoute] int orderId
-                                                , CancellationToken cancellationToken)
+                                                ,[FromRoute] int orderId
+                                                ,CancellationToken cancellationToken)
         {
             var query = new GetOrderDetailsQuery 
             {
-                 CustomerId = customerId,
+                 UserId = customerId,
                  OrderId = orderId
             };
             var result = await _queryBus.SendAsync(query, cancellationToken);
@@ -63,9 +66,10 @@ namespace EcommerceProject.API.Controllers
 
         [HttpPut]
         [Route("{orderId}/change-orderstatus")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ChangeOrderStatus([FromRoute] int orderId
-                                , [FromBody] ChangeOrderStatusRequest request
-                                , CancellationToken cancellationToken)
+                                                ,[FromBody] ChangeOrderStatusRequest request
+                                                ,CancellationToken cancellationToken)
         {
             var command = new ChangeOrderStatusCommand { OrderId = orderId, OrderStatus = request.OrderStatus };
             var result = await _commandBus.SendAsyns(command, cancellationToken);

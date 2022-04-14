@@ -28,6 +28,7 @@ namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
             this.Value = value;
             this.OrderProducts = orderProducts;
         }
+
         public void ChangeOrderStatus(OrderStatus orderStatus)
         {
             this.OrderStatus = orderStatus;

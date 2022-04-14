@@ -3,7 +3,7 @@ using EcommerceProject.Infrastructure.CQRS.Command;
 
 namespace EcommerceProject.Application.Commands.Customers.RegisterCustomer
 {
-    public class RegisterCustomerCommand : ICommand<UserData>
+    public class RegisterUserCommand : ICommand<UserData>
     {
         public string UserName { get ; init ; }
         public string Password { get; init; }

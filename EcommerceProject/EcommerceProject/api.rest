@@ -11,7 +11,8 @@ content-type: application/json
 
 {
   "name": "Nguyen Van A",
-  "userName": "nguyenvana",
+  "password": "nguyenvana",
+  "userName": "nguyenvanaa",
   "email": "admin@mail.com"
 }
 ###
@@ -63,19 +64,19 @@ DELETE {{url}}/products/{{productId}}
 @customerId = {{registerCustomer.response.body.customerId}}
 
 # @name getCartDetails
-GET {{url}}/customers/{{customerId}}/carts/{{cartId}}
+GET {{url}}/customers/{{customerId}}/cart?cartId={{cartId}}
 Content-Type: application/json
 ###
 
 
 
 # @name addProductToCart
-POST {{url}}/customers/{{customerId}}/carts/{{cartId}}/products
+POST {{url}}/customers/{{customerId}}/cart/products?cartId={{cartId}}
 Content-Type: application/json
 
 {
-  "productId": 3,
-  "quantity": 1
+  "productId": 2,
+  "quantity": 3
 }
 ###
 
@@ -96,25 +97,29 @@ DELETE {{url}}/customers/{{customerId}}/carts/{{cartId}}/products/{{cardProductI
 ###
 
 # @name placeOrder
-POST {{url}}/customers/{{customerId}}/carts/{{cartId}}/place-order
+POST {{url}}/customers/{{customerId}}/cart/place-order?cartId={{cartId}}
 Content-Type: application/json
 
 {
 }
 ###
 
-# @name getOrders
-GET {{url}}/customers/{{customerId}}/orders
+# @name getallOrders
+GET {{url}}/orders/get-all
 ###
 
-@orderId = 4
+# @name getOrdersbyId
+GET {{url}}/orders?customerId={{customerId}}
+###
+
+@orderId = 2
 
 # @name getOrderDetails
-GET {{url}}/customers/{{customerId}}/orders/{{orderId}}
+GET {{url}}/orders/{{orderId}}?customerId={{customerId}}
 ###
 
 # @name changeOrderStatus
-PUT {{url}}/customers/{{customerId}}/orders/{{orderId}}/change-order-status
+PUT {{url}}/orders/{{orderId}}/change-orderstatus
 Content-Type: application/json
 
 {

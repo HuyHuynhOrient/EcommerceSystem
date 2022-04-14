@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceProject.API.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Customer,Admin")]
     [Route("api/products")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -77,8 +77,9 @@ namespace EcommerceProject.API.Controllers
 
         [HttpPut]
         [Route("{productId}")]
-        public async Task<IActionResult> UpdateProduct([FromRoute] int productId, [FromBody] UpdateProductRequest request, 
-                                CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateProduct([FromRoute] int productId
+                                                ,[FromBody] UpdateProductRequest request
+                                                ,CancellationToken cancellationToken)
         {
             var command = new UpdateProductCommand
             {

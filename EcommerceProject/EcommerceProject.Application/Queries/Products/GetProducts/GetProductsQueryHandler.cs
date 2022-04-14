@@ -1,4 +1,5 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
+using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.CQRS.Queries;
 
 namespace EcommerceProject.Application.Queries.Products.GetProducts
@@ -14,18 +15,13 @@ namespace EcommerceProject.Application.Queries.Products.GetProducts
 
         public async Task<IEnumerable<Product>> Handle(GetProductsQuery query, CancellationToken cancellationToken)
         {
-            var productRepo = await _productRepository.FindAllAsync(null, cancellationToken);
-            var products = productRepo.ToList();
+            var spec = new SpecificationBase<Product>(x => (query.Name == null || x.Name == query.Name) 
+                                                        && (query.TradeMark == null || x.TradeMark == query.TradeMark)
+                                                        && (query.Origin == null || x.Origin == query.Origin)
+                                                        && (query.MaxValue == null || x.Price.Value <= query.MaxValue.Value)
+                                                        && (query.MinValue == null || x.Price.Value >= query.MaxValue.Value));
 
-            var result = from product in products
-                         where query.Name is null || product.Name == query.Name
-                         where query.TradeMark is null || product.TradeMark == query.TradeMark
-                         where query.Origin is null || product.Origin == query.Origin
-                         where query.MaxValue is null || product.Price.Value <= query.MaxValue.Value
-                         where query.MinValue is null || product.Price.Value >= query.MinValue.Value
-                         select product;
-
-            return result;
+            return await _productRepository.FindAllAsync(spec, cancellationToken);
         }
     }
 }

@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceProject.Application.Queries.Customers.GetCustomers
+namespace EcommerceProject.Application.Queries.Customers.GetCustomerDetails
 {
-    public class GetCustomersQuery : IQuery<IEnumerable<User>>
+    public class GetUserDetailsQuery : IQuery<User>
     {
+        public Guid UserId { get; set; }
     }
 }

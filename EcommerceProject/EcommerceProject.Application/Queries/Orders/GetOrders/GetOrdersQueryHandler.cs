@@ -1,10 +1,6 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
+using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.CQRS.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EcommerceProject.Application.Queries.Orders.GetOrders
 {
@@ -19,14 +15,8 @@ namespace EcommerceProject.Application.Queries.Orders.GetOrders
 
         public async Task<IEnumerable<Order>> Handle(GetOrdersQuery request, CancellationToken cancellationToken)
         {
-            var ordersRepo = await _orderRepository.FindAllAsync(null, cancellationToken);
-            var orders = ordersRepo.ToList();
-
-            var result = from order in orders
-                         where request.UserId == Guid.Empty || order.UserId == request.UserId
-                         select order;
-
-            return result;
+            var spec = new SpecificationBase<Order>(x => request.UserId == Guid.Empty || x.UserId == request.UserId);
+            return await _orderRepository.FindAllAsync(spec, cancellationToken);
         }
     }
 }
