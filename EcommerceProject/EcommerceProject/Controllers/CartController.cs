@@ -45,14 +45,13 @@ namespace EcommerceProject.API.Controllers
         [HttpPost]
         [Route("products")]
         public async Task<IActionResult> AddProductToCart([FromRoute] Guid customerId
-                                                ,[FromQuery] int cartId
                                                 ,[FromBody] AddProductToCartRequest request
                                                 ,CancellationToken cancellationToken)
         {
             var command = new AddProductToCartCommand
             {
                 UserId = customerId,
-                CartId = cartId,
+                CartId = request.CartId,
                 ProductId = request.ProductId,
                 Quantity = request.Quantity
             };
@@ -65,16 +64,14 @@ namespace EcommerceProject.API.Controllers
         [HttpPut]
         [Route("products")]
         public async Task<IActionResult> ChangeProductQuantity([FromRoute] Guid customerId
-                                                    ,[FromQuery] int cartId
-                                                    ,[FromQuery] int cartProductId
                                                     ,[FromBody] ChangeProductQuantityRequest request
                                                     ,CancellationToken cancellationToken)
         {
             var command = new ChangeProductQuantityCommand
             {
                 UserId = customerId,
-                CartId = cartId,
-                CartProductId = cartProductId,
+                CartId = request.CartProductId,
+                CartProductId = request.CartProductId,
                 ProductId = request.ProductId,
                 Quantity = request.Quantity
             };
@@ -87,15 +84,14 @@ namespace EcommerceProject.API.Controllers
         [HttpDelete]
         [Route("products")]
         public async Task<IActionResult> RemoveProductFromCart([FromRoute] Guid customerId
-                                                ,[FromQuery] int cartId
-                                                ,[FromQuery] int cartProductId
+                                                ,[FromBody] RemoveProductFromCartRequest request
                                                 ,CancellationToken cancellationToken)
         {
             var command = new RemoveProductFromCartCommand 
             { 
                 UserId = customerId,
-                CartId = cartId, 
-                CartProductId = cartProductId 
+                CartId = request.CartId, 
+                CartProductId = request.CartProductId 
             };
             var result = await _commandBus.SendAsyns(command, cancellationToken);
             if (result is null) return NotFound();
@@ -106,14 +102,13 @@ namespace EcommerceProject.API.Controllers
         [HttpPost]
         [Route("place-order")]
         public async Task<IActionResult> PlaceOrder([FromRoute] Guid customerId
-                                            ,[FromQuery] int cartId
                                             ,[FromBody] PlaceOrderRequest request
                                             ,CancellationToken cancellationToken)
         {
             var command = new PlaceOrderCommand
             {
                 UserId = customerId,
-                CartId = cartId,
+                CartId = request.CartId,
                 ShippingAddress = request.ShippingAddress,
                 ShippingPhoneNumber = request.ShippingPhoneNumber
             };

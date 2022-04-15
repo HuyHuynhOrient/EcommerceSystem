@@ -1,8 +1,8 @@
 ﻿using EcommerceProject.API.Dtos;
-using EcommerceProject.Application.Commands.Customers.AuthenticateCustomer;
-using EcommerceProject.Application.Commands.Customers.RegisterCustomer;
-using EcommerceProject.Application.Queries.Customers.GetCustomerDetails;
-using EcommerceProject.Application.Queries.Customers.GetCustomers;
+using EcommerceProject.Application.Commands.Users.AuthenticateCustomer;
+using EcommerceProject.Application.Commands.Users.RegisterCustomer;
+using EcommerceProject.Application.Queries.Users.GetCustomerDetails;
+using EcommerceProject.Application.Queries.Users.GetCustomers;
 using EcommerceProject.Infrastructure.CQRS.Command;
 using EcommerceProject.Infrastructure.CQRS.Queries;
 using Microsoft.AspNetCore.Authorization;
@@ -64,7 +64,7 @@ namespace EcommerceProject.API.Controllers
         [Route("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] AuthenticateUserRequest request, CancellationToken cancellationToken)
         {
-            var command = new AuthenticateUSerCommand
+            var command = new AuthenticateUserCommand
             {
                 Password = request.Password,
                 UserName = request.UserName,

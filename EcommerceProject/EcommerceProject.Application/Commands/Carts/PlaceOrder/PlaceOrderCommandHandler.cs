@@ -1,6 +1,6 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CartAggregate;
-using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
+using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
 
 namespace EcommerceProject.Application.Commands.Carts.PlaceOrder
@@ -35,7 +35,7 @@ namespace EcommerceProject.Application.Commands.Carts.PlaceOrder
                 orderProducts.Add(orderProduct);
             }
             
-            var order = new Order(cart.UserId, command.ShippingAddress, command.ShippingPhoneNumber, cart.Value, orderProducts);
+            var order = new Order(cart.UserId, command.ShippingAddress, command.ShippingPhoneNumber, orderProducts);
             await _orderRepository.AddAsync(order, cancellationToken);
 
             cart.RemoveAllCartProduct();

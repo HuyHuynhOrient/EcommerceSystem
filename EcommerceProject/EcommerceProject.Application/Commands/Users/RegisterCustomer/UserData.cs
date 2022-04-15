@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EcommerceProject.Application.Commands.Customers.RegisterCustomer
+﻿namespace EcommerceProject.Application.Commands.Users.RegisterCustomer
 {
     public class UserData
     {

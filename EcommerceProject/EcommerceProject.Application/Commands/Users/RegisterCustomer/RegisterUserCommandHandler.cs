@@ -1,10 +1,10 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CartAggregate;
-using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
+using EcommerceProject.Domain.AggregatesModel.RoleAggregate;
 using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.CQRS.Command;
 
-namespace EcommerceProject.Application.Commands.Customers.RegisterCustomer
+namespace EcommerceProject.Application.Commands.Users.RegisterCustomer
 {
     public class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand, UserData>
     {

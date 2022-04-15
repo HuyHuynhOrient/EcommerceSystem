@@ -1,6 +1,6 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CartAggregate;
-using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
+using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Domain.SharedKermel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -33,6 +33,7 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
                 od.Property(p => p.ProductId).HasColumnName("ProductId").IsRequired();
                 od.HasOne<Product>().WithMany();
 
+                od.Property(p => p.Price).HasColumnName("Price");
                 od.Property(p => p.Quantity).HasColumnName("Quantity");
                 od.OwnsOne<MoneyValue>(own => own.Value, value => {
                     value.Property(p => p.Currency).HasColumnName("Currency");

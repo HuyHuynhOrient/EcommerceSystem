@@ -1,6 +1,6 @@
 ﻿using EcommerceProject.Domain.SeedWork;
 
-namespace EcommerceProject.Domain.AggregatesModel.UserAggregate
+namespace EcommerceProject.Domain.AggregatesModel.RoleAggregate
 {
     public class Role : AggregateRoot<int>
     {

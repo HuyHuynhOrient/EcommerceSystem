@@ -1,5 +1,4 @@
-﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
-using EcommerceProject.Domain.AggregatesModel.UserAggregate;
+﻿using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.CQRS.Command;
 using Microsoft.Extensions.Configuration;
@@ -8,9 +7,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace EcommerceProject.Application.Commands.Customers.AuthenticateCustomer
+namespace EcommerceProject.Application.Commands.Users.AuthenticateCustomer
 {
-    public class AuthenticateUserCommandHandler : ICommandHandler<AuthenticateUSerCommand, string>
+    public class AuthenticateUserCommandHandler : ICommandHandler<AuthenticateUserCommand, string>
     {
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _config;
@@ -21,7 +20,7 @@ namespace EcommerceProject.Application.Commands.Customers.AuthenticateCustomer
             _config = config;
         }
 
-        public async Task<CommandResult<string>> Handle(AuthenticateUSerCommand command, CancellationToken cancellationToken)
+        public async Task<CommandResult<string>> Handle(AuthenticateUserCommand command, CancellationToken cancellationToken)
         {
             var spec = new SpecificationBase<User>(x => x.UserName == command.UserName && x.Password == command.Password);
             spec.Includes.Add(x => x.Role);

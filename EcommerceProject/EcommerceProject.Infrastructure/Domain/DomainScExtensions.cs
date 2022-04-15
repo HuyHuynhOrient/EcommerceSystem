@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using EcommerceProject.Domain.AggregatesModel.CartAggregate;
-using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
 using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
+using EcommerceProject.Domain.AggregatesModel.RoleAggregate;
 using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.Database;

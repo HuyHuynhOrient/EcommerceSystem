@@ -1,5 +1,4 @@
-﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
-using EcommerceProject.Domain.AggregatesModel.UserAggregate;
+﻿using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;

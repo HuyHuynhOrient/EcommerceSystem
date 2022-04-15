@@ -1,4 +1,4 @@
-﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
+﻿using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.CQRS.Queries;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceProject.Application.Queries.Customers.GetCustomers
+namespace EcommerceProject.Application.Queries.Users.GetCustomers
 {
     public class GetUsersQueryHandler : IQueryHandler<GetUsersQuery, IEnumerable<User>>
     {

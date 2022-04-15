@@ -20,25 +20,25 @@ namespace EcommerceProject.Domain.AggregatesModel.CartAggregate
             this.CartProducts = new List<CartProduct>();
         }
 
-        public void AddCartProduct(int productId, int quantity, MoneyValue value)
+        public void AddCartProduct(CartProduct cartProduct)
         {
-            var orderProduct = new CartProduct(productId, quantity, value);
-            this.CartProducts.Add(orderProduct);
+            this.CartProducts.Add(cartProduct);
             CalculateCartValue();
         }
 
-        public void ChangeCartProductQuantity(int orderProductId, int quantity, MoneyValue value)
+        public void ChangeCartProductQuantity(int orderProductId, int quantity)
         {
-            var order = CartProducts.Find(x => x.Id == orderProductId);
-            order.ChangeQuantity(quantity, value);
+            var cartProduct = CartProducts.Find(x => x.Id == orderProductId);
+            cartProduct.ChangeQuantity(quantity);
             CalculateCartValue();
         }
 
         public void RemoveCartProduct(int orderProductId)
         {
-            var orderProduct = CartProducts.Find(x => x.Id == orderProductId);
-            this.CartProducts.Remove(orderProduct);
-            CalculateCartValue();
+            var cartProduct = CartProducts.Find(x => x.Id == orderProductId);
+            this.CartProducts.Remove(cartProduct);
+            if (this.CartProducts.Count == 0) this.Value = null;
+            else CalculateCartValue();
         }
 
         public void RemoveAllCartProduct()

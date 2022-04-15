@@ -1,7 +1,7 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
 
-namespace EcommerceProject.Application.Commands.Customers.RegisterCustomer
+namespace EcommerceProject.Application.Commands.Users.RegisterCustomer
 {
     public class RegisterUserCommand : ICommand<UserData>
     {

@@ -1,7 +1,7 @@
-﻿using EcommerceProject.Domain.AggregatesModel.UserAggregate;
+﻿using EcommerceProject.Domain.AggregatesModel.RoleAggregate;
 using EcommerceProject.Domain.SeedWork;
 
-namespace EcommerceProject.Domain.AggregatesModel.CustomerAggregate
+namespace EcommerceProject.Domain.AggregatesModel.UserAggregate
 {
     public class User : AggregateRoot<Guid>
     {

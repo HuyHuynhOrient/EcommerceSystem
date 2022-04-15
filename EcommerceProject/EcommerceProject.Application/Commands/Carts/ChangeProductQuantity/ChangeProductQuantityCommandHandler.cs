@@ -1,6 +1,6 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CartAggregate;
-using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
+using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
 
 namespace EcommerceProject.Application.Commands.Carts.ChangeProductQuantity
@@ -30,7 +30,7 @@ namespace EcommerceProject.Application.Commands.Carts.ChangeProductQuantity
             var product = await _productRepository.FindOneAsync(command.ProductId, cancellationToken);
             if (product == null) return CommandResult<int>.Error("Your product is not exist.");
 
-            cart.ChangeCartProductQuantity(command.CartProductId, command.Quantity, command.Quantity * product.Price);
+            cart.ChangeCartProductQuantity(command.CartProductId, command.Quantity);
             await _cartRepository.SaveAsync(cart, cancellationToken);
 
             return CommandResult<int>.Success(product.Id);

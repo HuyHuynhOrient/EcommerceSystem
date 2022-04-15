@@ -1,4 +1,5 @@
-﻿using EcommerceProject.Domain.AggregatesModel.UserAggregate;
+﻿using EcommerceProject.Domain.AggregatesModel.RoleAggregate;
+using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Infrastructure.Database;
 
 namespace EcommerceProject.Infrastructure.Domain.Repository

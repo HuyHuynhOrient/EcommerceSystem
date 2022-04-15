@@ -1,5 +1,5 @@
-﻿using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
-using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
+﻿using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
+using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.CQRS.Queries;
 

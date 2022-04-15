@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceProject.Application.Commands.Customers.AuthenticateCustomer
+namespace EcommerceProject.Application.Commands.Users.AuthenticateCustomer
 {
-    public class AuthenticateUSerCommand : ICommand<string>
+    public class AuthenticateUserCommand : ICommand<string>
     {
         public string UserName { get; init; }
         public string Password { get; init; }

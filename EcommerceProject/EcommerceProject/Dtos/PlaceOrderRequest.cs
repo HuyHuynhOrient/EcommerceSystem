@@ -2,7 +2,8 @@
 {
     public class PlaceOrderRequest
     {
-        public string ShippingAddress { get; }
-        public string ShippingPhoneNumber { get; }
+        public int CartId { get; init; }
+        public string ShippingAddress { get; init; }
+        public string ShippingPhoneNumber { get; init; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CartAggregate;
-using EcommerceProject.Domain.AggregatesModel.CustomerAggregate;
 using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
 using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
@@ -31,7 +30,8 @@ namespace EcommerceProject.Application.Commands.Carts.AddProductToCart
             var product = await _productRepository.FindOneAsync(command.ProductId, cancellationToken);
             if (product == null) return CommandResult<int>.Error("Your product is not exist.");
 
-            cart.AddCartProduct(command.ProductId, command.Quantity, command.Quantity * product.Price);
+            var cartProduct = new CartProduct(command.ProductId, command.Quantity, product.Price);
+            cart.AddCartProduct(cartProduct);
             await _cartRepository.SaveAsync(cart, cancellationToken);
 
             return CommandResult<int>.Success(product.Id);
