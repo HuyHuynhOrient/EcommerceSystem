@@ -2,7 +2,7 @@
 using EcommerceProject.Domain.AggregatesModel.UserAggregate;
 using Xunit;
 
-namespace EcommerceProject.Domain.Test
+namespace EcommerceProject.Domain.Test.AggregateTest
 {
     public class UserAggregateTest
     {

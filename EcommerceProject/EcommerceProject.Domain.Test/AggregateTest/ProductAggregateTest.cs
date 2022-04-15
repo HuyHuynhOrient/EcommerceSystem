@@ -2,14 +2,14 @@
 using EcommerceProject.Domain.SharedKermel;
 using Xunit;
 
-namespace EcommerceProject.Domain.Test
+namespace EcommerceProject.Domain.Test.AggregateTest
 {
     public class ProductAggregateTest
     {
         public void GivenInfomation_WhenCreatingProduct_ThenItShouldBeCreate() 
         {
             var name = "Macbook";
-            var price = new MoneyValue(1000, "USA");
+            var price = MoneyValue.Of(1000, "USA");
             var tradeMark = "Apple";
             var origin = "China";
             var discription = "This is a macbook";
@@ -26,7 +26,7 @@ namespace EcommerceProject.Domain.Test
         public void GivenInfomation_WhenUpdatingProduct_ThenItShouldBeUpdate() 
         {
             var name = "Product 2";
-            var price = new MoneyValue(200, "VND");
+            var price = MoneyValue.Of(200, "VND");
             var tradeMark = "VietNam";
             var origin = "China";
             var discription = "This is not a product 1.";
@@ -44,7 +44,7 @@ namespace EcommerceProject.Domain.Test
         private Product GivenSampleProduct()
         {
             var name = "Product 1";
-            var price = new MoneyValue(100, "USA");
+            var price = MoneyValue.Of(100, "USA");
             var tradeMark = "China";
             var origin = "VietNam";
             var discription = "This is a product.";

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EcommerceProject.Domain.Test
+namespace EcommerceProject.Domain.Test.AggregateTest
 {
     public class RoleAggregateTest
     {

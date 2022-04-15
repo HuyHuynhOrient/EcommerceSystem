@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EcommerceProject.Domain.Test
+namespace EcommerceProject.Domain.Test.AggregateTest
 {
     public class CartAggregateTest
     {
@@ -26,19 +26,19 @@ namespace EcommerceProject.Domain.Test
         [Fact]
         public void GivenValue_WhenCalculatingThePriceOfProduct_ThenItShouldBeExactly()
         {
-            var price = new MoneyValue(100, "USA");
+            var price = MoneyValue.Of(100, "USA");
             var quantity = 2;
 
             var value = quantity * price;
 
-            Assert.Equal(new MoneyValue(200, "USA"), value);
+            Assert.Equal(MoneyValue.Of(200, "USA"), value);
         }
 
         [Fact]
         public void GivenInformation_WhenCreatingCartProduct_ThenItShouldBeCreated()
         {
             var productId = 1;
-            var price = new MoneyValue(100, "USA");
+            var price = MoneyValue.Of(100, "USA");
             var quantity = 2;
 
             var cartProduct = new CartProduct(productId, quantity, price);
@@ -132,7 +132,7 @@ namespace EcommerceProject.Domain.Test
         private CartProduct GivenSampleCartProduct1()
         {
             var productId = 1;
-            var price = new MoneyValue(15, "USA");
+            var price = MoneyValue.Of(15, "USA");
             var quantity = 3;
 
             return new CartProduct(productId, quantity, price);
@@ -141,7 +141,7 @@ namespace EcommerceProject.Domain.Test
         private CartProduct GivenSampleCartProduct2()
         {
             var productId = 2;
-            var price = new MoneyValue(20, "USA");
+            var price = MoneyValue.Of(20, "USA");
             var quantity = 5;
 
             return new CartProduct(productId, quantity, price);

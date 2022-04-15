@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EcommerceProject.Domain.Test
+namespace EcommerceProject.Domain.Test.AggregateTest
 {
     public class OrderAggregateTest
     {
@@ -17,7 +17,7 @@ namespace EcommerceProject.Domain.Test
         {
             var productId = 1;
             var quantity = 3;
-            var value = new MoneyValue(100, "USA");
+            var value = MoneyValue.Of(100, "USA");
 
             var orderProduct = new OrderProduct(productId, quantity, value);
 
@@ -79,7 +79,7 @@ namespace EcommerceProject.Domain.Test
         {
             var productId = 1;
             var quantity = 3;
-            var value = new MoneyValue(100, "USA");
+            var value = MoneyValue.Of(100, "USA");
 
             return new OrderProduct(productId, quantity, value);
         }
@@ -88,7 +88,7 @@ namespace EcommerceProject.Domain.Test
         {
             var productId = 2;
             var quantity = 2;
-            var value = new MoneyValue(1000, "USA");
+            var value = MoneyValue.Of(1000, "USA");
 
             return new OrderProduct(productId, quantity, value);
         }

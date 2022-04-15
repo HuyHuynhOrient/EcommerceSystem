@@ -31,8 +31,8 @@ namespace EcommerceProject.API.Controllers
         {
             MoneyValue maxValue = null;
             MoneyValue minValue = null;
-            if (request.MaxValue != 0) maxValue = new MoneyValue(request.MaxValue, request.Currency);
-            if (request.MinValue != 0) minValue = new MoneyValue(request.MinValue, request.Currency);
+            if (request.MaxValue != 0) maxValue = MoneyValue.Of(request.MaxValue, request.Currency);
+            if (request.MinValue != 0) minValue = MoneyValue.Of(request.MinValue, request.Currency);
 
             var query = new GetProductsQuery()
             {
