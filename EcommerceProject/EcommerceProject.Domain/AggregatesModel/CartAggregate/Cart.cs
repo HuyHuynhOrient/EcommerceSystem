@@ -46,7 +46,7 @@ namespace EcommerceProject.Domain.AggregatesModel.CartAggregate
             this.CartProducts = new List<CartProduct>();
             this.Value = null;
         }
-        public void CalculateCartValue()
+        private void CalculateCartValue()
         {
             this.Value = this.CartProducts.Sum(x => x.Value);
         }

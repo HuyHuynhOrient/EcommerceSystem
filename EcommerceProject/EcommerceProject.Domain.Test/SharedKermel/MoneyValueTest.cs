@@ -1,9 +1,6 @@
 ﻿using EcommerceProject.Domain.SharedKermel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace EcommerceProject.Domain.Test.SharedKermel
@@ -23,8 +20,16 @@ namespace EcommerceProject.Domain.Test.SharedKermel
         }
 
         [Fact] 
-        public void MoneyValueOf_WhenNotProvidingCurrency_ThrowsMoneyValueMustHaveCurrencyRuleBroken()
+        public void CheckRule_WhenNotProvidingCurrency_ThrowsMoneyValueMustHaveCurrencyRuleBroken()
         {
+            decimal value = 100;
+            string currency = "";
+            var moneyvalue = MoneyValue.Of(value, currency);
+
+            var checkrule = new MoneyValueMustHaveCurrencyRule(currency);
+
+            var message = "Money value must have currency";
+            Assert.Equal(message, checkrule.Message);
         }
 
         [Fact] 
@@ -36,6 +41,18 @@ namespace EcommerceProject.Domain.Test.SharedKermel
             var sumMoneyValue = value1 + value2;
 
             Assert.Equal(MoneyValue.Of(300, "USA"), sumMoneyValue);
+        }
+
+        [Fact]
+        public void CheckRule_WhenAddingTwoValueDifferenceCurrency_ThrowExption()
+        {
+            var value1 = MoneyValue.Of(100, "USA");
+            var value2 = MoneyValue.Of(200, "USA");
+
+            var checkrule = new MoneyValueOperationMustBePerformedOnTheSameCurrencyRule(value1, value2);
+
+            var message = "Money value currencies must be the same";
+            Assert.Equal(message, checkrule.Message);
         }
 
         [Fact] 
@@ -59,5 +76,21 @@ namespace EcommerceProject.Domain.Test.SharedKermel
 
             Assert.Equal(MoneyValue.Of(300, "USA"), multipValue);
         }
+
+        [Fact]
+        public void GivenSumMoneyValueExtentions_WhenAddingTheValueInList_IsSuccessful()
+        {
+            var value1 = MoneyValue.Of(100, "USA");
+            var value2 = MoneyValue.Of(200, "USA");
+            var value3 = MoneyValue.Of(500, "USA");
+            var list = new List<MoneyValue>() { value1, value2, value3 };
+
+            MoneyValue add = list.Sum();
+
+            var result = MoneyValue.Of(800, "USA");
+            Assert.Equal(result.Value, add.Value);
+            Assert.Equal(result.Currency, add.Currency);
+        }
+        
     }
 }
