@@ -23,7 +23,10 @@ namespace EcommerceProject.Domain.Test.SharedKermel
         [Fact] 
         public void CheckRule_WhenNotProvidingCurrency_ThrowsMoneyValueMustHaveCurrencyRuleBroken()
         {
-            Assert.Throws<BusinessRuleValidationException>(() => new MoneyValueMustHaveCurrencyRule(MoneyValue.Of(100, null).Currency));
+            var exception = Assert.Throws<BusinessRuleValidationException>(() => MoneyValue.Of(100, null));
+
+            string message = "Money value must have currency";
+            Assert.Equal(message, exception.Message);
         }
 
         [Fact] 
@@ -43,10 +46,10 @@ namespace EcommerceProject.Domain.Test.SharedKermel
             var value1 = MoneyValue.Of(100, "USA");
             var value2 = MoneyValue.Of(100, "VND");
 
-            var checkrule = new MoneyValueOperationMustBePerformedOnTheSameCurrencyRule(value1, value2);
+            var exception = Assert.Throws<BusinessRuleValidationException>(() => { var sum = value1 + value2; });
 
             var message = "Money value currencies must be the same";
-            Assert.Equal(message, checkrule.Message);
+            Assert.Equal(message, exception.Message);
         }
 
         [Fact] 
