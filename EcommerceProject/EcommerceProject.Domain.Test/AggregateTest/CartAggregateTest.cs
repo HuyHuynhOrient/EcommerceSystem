@@ -24,17 +24,6 @@ namespace EcommerceProject.Domain.Test.AggregateTest
         }
 
         [Fact]
-        public void GivenMoneyValue_WhenCalculatingThePriceOfCartProduct_ThenItShouldBeExactly()
-        {
-            var price = MoneyValue.Of(100, "USA");
-            var quantity = 2;
-
-            var value = quantity * price;
-
-            Assert.Equal(MoneyValue.Of(200, "USA"), value);
-        }
-
-        [Fact]
         public void GivenInformation_WhenCreatingCartProduct_ThenItShouldBeCreated()
         {
             var productId = 1;
@@ -44,9 +33,8 @@ namespace EcommerceProject.Domain.Test.AggregateTest
             var cartProduct = new CartProduct(productId, quantity, price);
 
             Assert.Equal(productId, cartProduct.ProductId);
-            Assert.Equal(quantity, cartProduct.Quantity);
             Assert.Equal(price, cartProduct.Price);
-            Assert.Equal(quantity * price, cartProduct.Value);
+            Assert.Equal(quantity, cartProduct.Quantity);
         }
 
         [Fact]
@@ -60,7 +48,8 @@ namespace EcommerceProject.Domain.Test.AggregateTest
             cart.AddCartProduct(cartProduct1);
             cart.AddCartProduct(cartProduct2);
 
-            Assert.Equal(cartProduct1.Value + cartProduct2.Value, cart.Value);
+            var result = cartProduct1.Quantity * cartProduct1.Price + cartProduct2.Quantity * cartProduct2.Price;
+            Assert.Equal(result, cart.Value);
         }
 
         [Fact]
@@ -75,10 +64,11 @@ namespace EcommerceProject.Domain.Test.AggregateTest
 
             Assert.Equal(2, cart.CartProducts.Count);
             Assert.Equal(cartProduct1.ProductId, cart.CartProducts[0].ProductId);
-            Assert.Equal(cartProduct1.Value, cart.CartProducts[0].Value);
+            Assert.Equal(cartProduct1.Price, cart.CartProducts[0].Price);
+            Assert.Equal(cartProduct1.Quantity, cart.CartProducts[0].Quantity);
             Assert.Equal(cartProduct2.ProductId, cart.CartProducts[1].ProductId);
-            Assert.Equal(cartProduct2.Value, cart.CartProducts[1].Value);
-
+            Assert.Equal(cartProduct2.Price, cart.CartProducts[1].Price);
+            Assert.Equal(cartProduct2.Quantity, cart.CartProducts[1].Quantity);
         }
 
         [Fact]
@@ -92,9 +82,8 @@ namespace EcommerceProject.Domain.Test.AggregateTest
             cart.ChangeCartProductQuantity(cartProduct.Id, quantityChanged);
 
             var valueChanged = quantityChanged * cartProduct.Price;
-            Assert.Equal(valueChanged, cart.Value);
             Assert.Equal(quantityChanged, cart.CartProducts[0].Quantity);
-            Assert.Equal(valueChanged, cart.CartProducts[0].Value);
+            Assert.Equal(valueChanged, cart.Value);
         }
 
         [Fact]

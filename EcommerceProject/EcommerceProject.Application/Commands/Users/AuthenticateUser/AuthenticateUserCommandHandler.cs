@@ -22,10 +22,11 @@ namespace EcommerceProject.Application.Commands.Users.AuthenticateCustomer
 
         public async Task<CommandResult<string>> Handle(AuthenticateUserCommand command, CancellationToken cancellationToken)
         {
-            var spec = new SpecificationBase<User>(x => x.UserName == command.UserName && x.Password == command.Password);
+            var spec = new SpecificationBase<User>(x => x.UserName == command.UserName);
             spec.Includes.Add(x => x.Role);
             var user = await _userRepository.FindOneAsync(spec, cancellationToken);
             if (user == null) return CommandResult<string>.Error("Customer is not valid.");
+            if (user.Password != command.Password) return CommandResult<string>.Error("Your password is not exactly.");
 
             var claims = new[]
              {

@@ -1,6 +1,7 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CartAggregate;
 using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
 using EcommerceProject.Domain.AggregatesModel.UserAggregate;
+using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.CQRS.Command;
 
 namespace EcommerceProject.Application.Commands.Carts.PlaceOrder
@@ -21,17 +22,15 @@ namespace EcommerceProject.Application.Commands.Carts.PlaceOrder
 
         public async Task<CommandResult> Handle(PlaceOrderCommand command, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.FindOneAsync(command.UserId, cancellationToken);
-            if (user == null) return CommandResult<int>.Error("You do not have permission to execute this command.");
-
-            var cart = await _cartRepository.FindOneAsync(command.CartId, cancellationToken);
-            if (cart == null) return CommandResult<int>.Error("Your cart is not exist.");
+            var spec = new SpecificationBase<Cart>(x => x.UserId == command.UserId);
+            var cart = await _cartRepository.FindOneAsync(spec, cancellationToken);
+            if (cart == null) return CommandResult<int>.Error("Do not find a cart with customer id.");
 
             var orderProducts = new List<OrderProduct>();
             var cartProducts = cart.CartProducts;
             foreach(var cartProduct in cartProducts)
             {
-                OrderProduct orderProduct = new OrderProduct(cartProduct.ProductId, cartProduct.Quantity, cartProduct.Value);
+                OrderProduct orderProduct = new OrderProduct(cartProduct.ProductId, cartProduct.Quantity, cartProduct.Price);
                 orderProducts.Add(orderProduct);
             }
             

@@ -32,13 +32,11 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
                 od.Property<int>("CartId").HasColumnName("CartId").IsRequired();
                 od.Property(p => p.ProductId).HasColumnName("ProductId").IsRequired();
                 od.HasOne<Product>().WithMany();
-
-                od.Property(p => p.Price).HasColumnName("Price");
-                od.Property(p => p.Quantity).HasColumnName("Quantity");
-                od.OwnsOne<MoneyValue>(own => own.Value, value => {
+                od.OwnsOne<MoneyValue>(own => own.Price, value => {
                     value.Property(p => p.Currency).HasColumnName("Currency");
                     value.Property(p => p.Value).HasColumnName("Value").HasColumnType("decimal(12,8)");
                 });
+                od.Property(p => p.Quantity).HasColumnName("Quantity");
 
                 od.HasIndex("CartId", "ProductId").IsUnique();
             });

@@ -39,7 +39,7 @@ namespace EcommerceProject.Infrastructure.Database.EntityTypeConfiguration
                 od.HasOne<Product>().WithMany();
 
                 od.Property(p => p.Quantity).HasColumnName("Quantity");
-                od.OwnsOne<MoneyValue>(own => own.Value, value => {
+                od.OwnsOne<MoneyValue>(own => own.Price, value => {
                     value.Property(p => p.Currency).HasColumnName("Currency");
                     value.Property(p => p.Value).HasColumnName("Value").HasColumnType("decimal(12,8)");
                 });

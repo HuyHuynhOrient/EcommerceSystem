@@ -1,6 +1,6 @@
 ﻿namespace EcommerceProject.API.Dtos
 {
-    public class GetOrdersRequest
+    public class GetAllOrdersRequest
     {
         public Guid UserId { get; init; }
     }

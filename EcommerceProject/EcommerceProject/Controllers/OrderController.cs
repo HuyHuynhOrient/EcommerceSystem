@@ -30,18 +30,16 @@ namespace EcommerceProject.API.Controllers
         {
             var query = new GetOrdersQuery { UserId = request.UserId };
             var result = await _queryBus.SendAsync(query, cancellationToken);
-            if (result is null) return BadRequest();
 
             return Ok(result);
         }
 
         [HttpGet]
         [Authorize(Roles = "Customer")]
-        public async Task<IActionResult> GetCustomerOrders([FromQuery] Guid customerId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetCustomerOrders([FromQuery] GetCustomerOrdersQuery request, CancellationToken cancellationToken)
         {
-            var query = new GetCustomerOrdersQuery { UserId = customerId };
+            var query = new GetCustomerOrdersQuery { UserId = request.UserId };
             var result = await _queryBus.SendAsync(query, cancellationToken);
-            if (result is null) return BadRequest();
 
             return Ok(result);
         }
@@ -59,7 +57,7 @@ namespace EcommerceProject.API.Controllers
                  OrderId = orderId
             };
             var result = await _queryBus.SendAsync(query, cancellationToken);
-            if (result is null) return BadRequest();
+            if (result is null) return NotFound();
 
             return Ok(result);
         }
@@ -73,7 +71,7 @@ namespace EcommerceProject.API.Controllers
         {
             var command = new ChangeOrderStatusCommand { OrderId = orderId, OrderStatus = request.OrderStatus };
             var result = await _commandBus.SendAsyns(command, cancellationToken);
-            if (result is null) return NotFound();
+            if (!result.IsSuccess) return BadRequest(result.Message);
 
             return Ok(result);
         }

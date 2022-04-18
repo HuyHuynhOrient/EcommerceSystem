@@ -29,6 +29,7 @@ namespace EcommerceProject.API.Controllers
         {
             var query = new GetUsersQuery();
             var result = await _queryBus.SendAsync(query, cancellationToken);
+
             return Ok(result);
         }
 
@@ -39,7 +40,8 @@ namespace EcommerceProject.API.Controllers
         {
             var query = new GetUserDetailsQuery() { UserId = userId };
             var result = await _queryBus.SendAsync(query, cancellationToken);
-            
+            if (result is null) return NotFound();
+
             return Ok(result);
         }
 
@@ -55,7 +57,7 @@ namespace EcommerceProject.API.Controllers
                 Email = request.Email, 
             };
             var result = await _commandBus.SendAsyns(command, cancellationToken);
-            if (!result.IsSuccess) return BadRequest();
+            if (!result.IsSuccess) return BadRequest(result.Message);
 
             return Ok(new { customerId = result.Response.UserId, cartId = result.Response.CartId });
         }
@@ -71,7 +73,7 @@ namespace EcommerceProject.API.Controllers
                 RememberMe = request.RememberMe
             };
             var result = await _commandBus.SendAsyns(command, cancellationToken);
-            if (!result.IsSuccess) return BadRequest();
+            if (!result.IsSuccess) return BadRequest(result.Message);
 
             return Ok(new { token = result.Response });
         }

@@ -8,7 +8,6 @@ namespace EcommerceProject.Domain.AggregatesModel.CartAggregate
         public int ProductId { get; }
         public MoneyValue Price { get; }
         public int Quantity { get; private set; }
-        public MoneyValue Value { get; private set; }
 
         private CartProduct()
         {
@@ -19,17 +18,12 @@ namespace EcommerceProject.Domain.AggregatesModel.CartAggregate
             this.ProductId = productId;
             this.Quantity = quantity;
             this.Price = price;
-            CalculateValue();
         }
 
         public void ChangeQuantity(int quantity)
         {
             this.Quantity = quantity;
-            CalculateValue();
         }
-        private void CalculateValue()
-        {
-            this.Value = this.Quantity * this.Price;
-        }
+
     }
 }

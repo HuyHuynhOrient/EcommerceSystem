@@ -28,16 +28,14 @@ namespace EcommerceProject.API.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetCartDetails([FromRoute] Guid customerId
-                                                ,[FromQuery] int cartId
                                                 ,CancellationToken cancellationToken)
         {
             var query = new GetCartDetailsQuery 
             {
-                UserId = customerId,
-                CartId = cartId
+                UserId = customerId
             };
             var result = await _queryBus.SendAsync(query, cancellationToken);
-            if (result is null) return NotFound();
+            if (result is null) return NotFound("Customer is not exist.");
 
             return Ok(result);
         }
@@ -51,12 +49,11 @@ namespace EcommerceProject.API.Controllers
             var command = new AddProductToCartCommand
             {
                 UserId = customerId,
-                CartId = request.CartId,
                 ProductId = request.ProductId,
                 Quantity = request.Quantity
             };
             var result = await _commandBus.SendAsyns(command, cancellationToken);
-            if (result is null) return NotFound();
+            if (!result.IsSuccess) return BadRequest(result.Message);
 
             return Ok(result);
         }
@@ -70,13 +67,12 @@ namespace EcommerceProject.API.Controllers
             var command = new ChangeProductQuantityCommand
             {
                 UserId = customerId,
-                CartId = request.CartProductId,
                 CartProductId = request.CartProductId,
                 ProductId = request.ProductId,
                 Quantity = request.Quantity
             };
             var result = await _commandBus.SendAsyns(command, cancellationToken);
-            if (result is null) return NotFound();
+            if (!result.IsSuccess) return BadRequest(result.Message);
 
             return Ok(result);
         }
@@ -90,11 +86,10 @@ namespace EcommerceProject.API.Controllers
             var command = new RemoveProductFromCartCommand 
             { 
                 UserId = customerId,
-                CartId = request.CartId, 
                 CartProductId = request.CartProductId 
             };
             var result = await _commandBus.SendAsyns(command, cancellationToken);
-            if (result is null) return NotFound();
+            if (!result.IsSuccess) return BadRequest(result.Message);
 
             return Ok(result);
         }
@@ -108,12 +103,11 @@ namespace EcommerceProject.API.Controllers
             var command = new PlaceOrderCommand
             {
                 UserId = customerId,
-                CartId = request.CartId,
                 ShippingAddress = request.ShippingAddress,
                 ShippingPhoneNumber = request.ShippingPhoneNumber
             };
             var result = await _commandBus.SendAsync(command, cancellationToken);
-            if (result is null) return NotFound();
+            if (!result.IsSuccess) return BadRequest(result.Message);
 
             return Ok(result);
         }

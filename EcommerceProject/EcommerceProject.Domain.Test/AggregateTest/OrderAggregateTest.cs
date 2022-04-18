@@ -17,13 +17,13 @@ namespace EcommerceProject.Domain.Test.AggregateTest
         {
             var productId = 1;
             var quantity = 3;
-            var value = MoneyValue.Of(100, "USA");
+            var price = MoneyValue.Of(100, "USA");
 
-            var orderProduct = new OrderProduct(productId, quantity, value);
+            var orderProduct = new OrderProduct(productId, quantity, price);
 
             Assert.Equal(productId, orderProduct.ProductId);
             Assert.Equal(quantity, orderProduct.Quantity);
-            Assert.Equal(value, orderProduct.Value);
+            Assert.Equal(price, orderProduct.Price);
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace EcommerceProject.Domain.Test.AggregateTest
             Assert.Single(order.OrderProducts);
             Assert.Equal(orderProduct1.Id, order.OrderProducts[0].Id);
             Assert.Equal(orderProduct1.Quantity, order.OrderProducts[0].Quantity);
-            Assert.Equal(orderProduct1.Value, order.OrderProducts[0].Value);
+            Assert.Equal(orderProduct1.Price, order.OrderProducts[0].Price);
         }
 
         [Fact]
@@ -61,7 +61,8 @@ namespace EcommerceProject.Domain.Test.AggregateTest
 
             var order = new Order(userId, shippingAddress, shippingPhoneNumber, orderProducts);
 
-            Assert.Equal(orderProduct1.Value + orderProduct2.Value, order.Value);
+            var result = orderProduct1.Quantity * orderProduct1.Price + orderProduct2.Quantity * orderProduct2.Price;
+            Assert.Equal(result, order.Value);
         }
 
         [Fact]

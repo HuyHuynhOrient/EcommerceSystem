@@ -6,18 +6,18 @@ namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
     public class OrderProduct : Entity<int>
     {
         public int ProductId { get; }
-        public int Quantity { get; private set; }
-        public MoneyValue Value { get; private set; }
+        public int Quantity { get; }
+        public MoneyValue Price { get; }
 
         private OrderProduct()
         {
         }
 
-        public OrderProduct(int productId, int quantity, MoneyValue value)
+        public OrderProduct(int productId, int quantity, MoneyValue price)
         {
             this.ProductId = productId;
             this.Quantity = quantity;
-            this.Value = value;
+            this.Price = price;
         }
     }
 }

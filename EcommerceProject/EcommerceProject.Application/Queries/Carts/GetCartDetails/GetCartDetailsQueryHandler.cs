@@ -1,5 +1,6 @@
 ﻿using EcommerceProject.Domain.AggregatesModel.CartAggregate;
 using EcommerceProject.Domain.AggregatesModel.UserAggregate;
+using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.CQRS.Queries;
 
 namespace EcommerceProject.Application.Queries.Carts.GetCartDetails
@@ -20,7 +21,11 @@ namespace EcommerceProject.Application.Queries.Carts.GetCartDetails
             var user = await _userRepository.FindOneAsync(query.UserId, cancellationToken);
             if (user == null) return null;
 
-            return await _cartRepository.FindOneAsync(query.CartId, cancellationToken);
+            var spec = new SpecificationBase<Cart>(x => x.UserId == query.UserId);
+            var cart = await _cartRepository.FindOneAsync(spec, cancellationToken);
+            if (cart is null) throw new Exception("Each customer must has an cart. Something is broken.");
+
+            return cart;
         }
     }
 }
