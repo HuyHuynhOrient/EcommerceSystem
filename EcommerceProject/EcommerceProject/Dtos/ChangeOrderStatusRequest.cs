@@ -1,4 +1,4 @@
-﻿using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
+﻿using EcommerceProject.Domain.AggregatesRoot.OrderAggregate;
 
 namespace EcommerceProject.API.Dtos
 {

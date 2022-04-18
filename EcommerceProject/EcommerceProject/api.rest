@@ -26,11 +26,9 @@ POST {{url}}/products
 content-type: application/json
 
 {
-  "name": "Macbookk",
-  "price": {
-    "value": 100,
-    "currency": "USA"
-  },
+  "name": "Macbook",
+  "moneyValue": 100,
+  "currency": "USA",
   "tradeMark": "Apple",
   "origin": "China",
   "discription": "This is a macbook."

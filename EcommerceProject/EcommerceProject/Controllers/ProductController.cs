@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceProject.API.Controllers
 {
-    [Authorize(Roles = "Customer,Admin")]
+    //[Authorize(Roles = "Customer,Admin")]
     [Route("api/products")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -64,7 +64,7 @@ namespace EcommerceProject.API.Controllers
             var command = new CreateProductCommand
             {
                 Name = request.Name,
-                Price = request.Price,
+                Price = MoneyValue.Of(request.MoneyValue, request.Currency),
                 TradeMark = request.TradeMark,
                 Origin = request.Origin,
                 Discription = request.Discription

@@ -1,4 +1,4 @@
-﻿using EcommerceProject.Domain.AggregatesModel.CartAggregate;
+﻿using EcommerceProject.Domain.AggregatesRoot.CartAggregate;
 using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.Database;
 

@@ -1,4 +1,4 @@
-﻿using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
+﻿using EcommerceProject.Domain.AggregatesRoot.ProductAggregate;
 using EcommerceProject.Infrastructure.Database;
 
 namespace EcommerceProject.Infrastructure.Domain.Repository

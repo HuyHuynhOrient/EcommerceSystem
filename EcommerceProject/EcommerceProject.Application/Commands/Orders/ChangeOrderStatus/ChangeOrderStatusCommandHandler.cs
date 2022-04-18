@@ -1,4 +1,4 @@
-﻿using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
+﻿using EcommerceProject.Domain.AggregatesRoot.OrderAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
 
 namespace EcommerceProject.Application.Commands.Orders.ChangeOrderStatus

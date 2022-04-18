@@ -52,21 +52,21 @@ builder.Services.AddAuthentication( option =>
     option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-     .AddJwtBearer(options =>
-     {
-         options.RequireHttpsMetadata = false;
-         options.SaveToken = true;
-         options.TokenValidationParameters = new TokenValidationParameters()
-         {
-             ValidateIssuer = true,
-             ValidIssuer = issuser,
-             ValidateAudience = true,
-             ValidAudience = issuser,
-             ValidateLifetime = true,
-             ValidateIssuerSigningKey = true,
-             ClockSkew = TimeSpan.Zero,
-             IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
-         };
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+           ValidateIssuer = true,
+           ValidIssuer = issuser,
+           ValidateAudience = true,
+           ValidAudience = issuser,
+           ValidateLifetime = true,
+           ValidateIssuerSigningKey = true,
+           ClockSkew = TimeSpan.Zero,
+           IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
+        };
     });
 
 builder.Services.AddHealthChecks();

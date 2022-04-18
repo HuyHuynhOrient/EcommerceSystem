@@ -1,4 +1,4 @@
-﻿using EcommerceProject.Domain.AggregatesModel.RoleAggregate;
+﻿using EcommerceProject.Domain.AggregatesRoot.RoleAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

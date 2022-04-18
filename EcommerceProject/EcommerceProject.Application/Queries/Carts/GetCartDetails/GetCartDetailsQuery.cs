@@ -1,5 +1,5 @@
 ﻿using EcommerceProject.Infrastructure.CQRS.Queries;
-using EcommerceProject.Domain.AggregatesModel.CartAggregate;
+using EcommerceProject.Domain.AggregatesRoot.CartAggregate;
 
 namespace EcommerceProject.Application.Queries.Carts.GetCartDetails
 {

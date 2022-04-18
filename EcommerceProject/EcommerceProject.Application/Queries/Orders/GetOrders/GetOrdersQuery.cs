@@ -1,4 +1,4 @@
-﻿using EcommerceProject.Domain.AggregatesModel.OrderAggregate;
+﻿using EcommerceProject.Domain.AggregatesRoot.OrderAggregate;
 using EcommerceProject.Domain.SharedKermel;
 using EcommerceProject.Infrastructure.CQRS.Queries;
 

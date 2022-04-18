@@ -1,4 +1,4 @@
-﻿using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
+﻿using EcommerceProject.Domain.AggregatesRoot.ProductAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
 
 namespace EcommerceProject.Application.Commands.Products.UpdateProduct

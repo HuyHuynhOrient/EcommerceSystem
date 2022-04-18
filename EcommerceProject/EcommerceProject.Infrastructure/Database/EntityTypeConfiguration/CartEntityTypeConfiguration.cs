@@ -1,6 +1,6 @@
-﻿using EcommerceProject.Domain.AggregatesModel.CartAggregate;
-using EcommerceProject.Domain.AggregatesModel.ProductAggregate;
-using EcommerceProject.Domain.AggregatesModel.UserAggregate;
+﻿using EcommerceProject.Domain.AggregatesRoot.CartAggregate;
+using EcommerceProject.Domain.AggregatesRoot.ProductAggregate;
+using EcommerceProject.Domain.AggregatesRoot.UserAggregate;
 using EcommerceProject.Domain.SharedKermel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
