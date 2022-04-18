@@ -1,4 +1,5 @@
-﻿using EcommerceProject.Domain.SharedKermel;
+﻿using EcommerceProject.Domain.SeedWork;
+using EcommerceProject.Domain.SharedKermel;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -8,7 +9,7 @@ namespace EcommerceProject.Domain.Test.SharedKermel
     public class MoneyValueTest
     {
         [Fact]
-        public void MoneyValueOf_WhenProvidingCurrency_IsSuccessful()
+        public void GivenMoneyValueOf_WhenProvidingCurrency_IsSuccessful()
         {
             decimal value = 300;
             var currency = "USA";
@@ -22,14 +23,7 @@ namespace EcommerceProject.Domain.Test.SharedKermel
         [Fact] 
         public void CheckRule_WhenNotProvidingCurrency_ThrowsMoneyValueMustHaveCurrencyRuleBroken()
         {
-            decimal value = 100;
-            string currency = "";
-            var moneyvalue = MoneyValue.Of(value, currency);
-
-            var checkrule = new MoneyValueMustHaveCurrencyRule(currency);
-
-            var message = "Money value must have currency";
-            Assert.Equal(message, checkrule.Message);
+            Assert.Throws<BusinessRuleValidationException>(() => new MoneyValueMustHaveCurrencyRule(MoneyValue.Of(100, null).Currency));
         }
 
         [Fact] 
@@ -47,7 +41,7 @@ namespace EcommerceProject.Domain.Test.SharedKermel
         public void CheckRule_WhenAddingTwoValueDifferenceCurrency_ThrowExption()
         {
             var value1 = MoneyValue.Of(100, "USA");
-            var value2 = MoneyValue.Of(200, "USA");
+            var value2 = MoneyValue.Of(100, "VND");
 
             var checkrule = new MoneyValueOperationMustBePerformedOnTheSameCurrencyRule(value1, value2);
 

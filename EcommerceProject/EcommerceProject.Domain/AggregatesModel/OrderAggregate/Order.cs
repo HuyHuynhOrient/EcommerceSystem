@@ -35,7 +35,7 @@ namespace EcommerceProject.Domain.AggregatesModel.OrderAggregate
             this.OrderStatus = orderStatus;
         }
 
-        public void CalculateOrderValue()
+        private void CalculateOrderValue()
         {
             this.Value = this.OrderProducts.Sum(x => x.Value);
         }

@@ -6,7 +6,7 @@ namespace EcommerceProject.Domain.Test.AggregateTest
 {
     public class ProductAggregateTest
     {
-        public void GivenInfomation_WhenCreatingProduct_ThenItShouldBeCreate() 
+        public void GivenInfomation_WhenCreatingProduct_ThenItShouldBeCreated() 
         {
             var name = "Macbook";
             var price = MoneyValue.Of(1000, "USA");
@@ -23,14 +23,14 @@ namespace EcommerceProject.Domain.Test.AggregateTest
             Assert.Equal(origin, product.Origin);
             Assert.Equal(discription, product.Discription);
         }
-        public void GivenInfomation_WhenUpdatingProduct_ThenItShouldBeUpdate() 
+        public void GivenInfomation_WhenUpdatingProduct_ThenItShouldBeUpdated() 
         {
+            var product = GivenSampleProduct();
             var name = "Product 2";
             var price = MoneyValue.Of(200, "VND");
             var tradeMark = "VietNam";
             var origin = "China";
             var discription = "This is not a product 1.";
-            var product = GivenSampleProduct();
 
             product.UpdateProduct(name, price, tradeMark, origin, discription);
 

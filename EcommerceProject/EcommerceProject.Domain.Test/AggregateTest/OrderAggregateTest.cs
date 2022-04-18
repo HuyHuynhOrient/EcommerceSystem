@@ -48,7 +48,7 @@ namespace EcommerceProject.Domain.Test.AggregateTest
         }
 
         [Fact]
-        public void GivenValue_WhenCalculatingOrderValue_ThenItShouldBeExactly()
+        public void GivenMoneyValue_WhenCalculatingOrderValue_ThenItShouldBeExactly()
         {
             var userId = Guid.NewGuid();
             var shippingAddress = "01 Nguyen Huu Tho, Da Nang city.";

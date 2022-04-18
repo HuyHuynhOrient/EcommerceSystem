@@ -12,7 +12,7 @@ namespace EcommerceProject.Domain.Test.AggregateTest
     public class CartAggregateTest
     {
         [Fact]
-        public void GivenInformation_WhenCreatingCart_ThenItShouldBeCreated()
+        public void GivenInformation_WhenCreatingACart_ThenItShouldBeCreated()
         {
             var userId = Guid.NewGuid();
 
@@ -24,7 +24,7 @@ namespace EcommerceProject.Domain.Test.AggregateTest
         }
 
         [Fact]
-        public void GivenValue_WhenCalculatingThePriceOfProduct_ThenItShouldBeExactly()
+        public void GivenMoneyValue_WhenCalculatingThePriceOfCartProduct_ThenItShouldBeExactly()
         {
             var price = MoneyValue.Of(100, "USA");
             var quantity = 2;
@@ -50,7 +50,7 @@ namespace EcommerceProject.Domain.Test.AggregateTest
         }
 
         [Fact]
-        public void GivenValue_WhenCalculatingTheValueOfCart_ThenItShouldExactly()
+        public void GivenMoneyValue_WhenCalculatingTheValueOfCart_ThenItShouldBeExactly()
         {
 
             var cartProduct1 = GivenSampleCartProduct1();
@@ -64,7 +64,7 @@ namespace EcommerceProject.Domain.Test.AggregateTest
         }
 
         [Fact]
-        public void GivenACart_WhenAddCartProductToCart_ThenInShoudldBeAdd()
+        public void GivenACart_WhenAddingCartProductToCart_ThenInShoudldBeAdd()
         {
             var cartProduct1 = GivenSampleCartProduct1();
             var cartProduct2 = GivenSampleCartProduct2();
@@ -82,7 +82,7 @@ namespace EcommerceProject.Domain.Test.AggregateTest
         }
 
         [Fact]
-        public void GivenInformation_WhenChangingQuantityCartProduct_ThenItShouldBeChangedAndReCalculatedValue()
+        public void GivenACart_WhenChangingQuantityOfCartProduct_ThenItShouldBeChangedAndReCalculatedValue()
         {
             var cartProduct = GivenSampleCartProduct1();
             var cart = GivenSampleCart();
