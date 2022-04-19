@@ -2,7 +2,7 @@
 
 namespace EcommerceProject.Application.Commands.Carts.AddProductToCart
 {
-    public class AddProductToCartCommand : ICommand<int>
+    public class AddProductToCartCommand : ICommand<Guid>
     {
         public Guid UserId { get; init; }
         public int ProductId { get; init; }

@@ -2,7 +2,7 @@
 
 namespace EcommerceProject.Application.Commands.Carts.ChangeProductQuantity
 {
-    public class ChangeProductQuantityCommand : ICommand<int>
+    public class ChangeProductQuantityCommand : ICommand<Guid>
     {
         public Guid UserId { get; init; }
         public int CartProductId { get; init; }

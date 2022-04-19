@@ -6,17 +6,14 @@ using EcommerceProject.Infrastructure.CQRS.Command;
 
 namespace EcommerceProject.Application.Commands.Carts.PlaceOrder
 {
-    internal class PlaceOrderCommandHandler : ICommandHandler<PlaceOrderCommand>
+    public class PlaceOrderCommandHandler : ICommandHandler<PlaceOrderCommand>
     {
         private readonly ICartRepository _cartRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IOrderRepository _orderRepository;
 
-        public PlaceOrderCommandHandler(ICartRepository cartRepository, IUserRepository userRepository,
-                              IOrderRepository orderRepository)
+        public PlaceOrderCommandHandler(ICartRepository cartRepository, IOrderRepository orderRepository)
         {
             _cartRepository = cartRepository;
-            _userRepository = userRepository;
             _orderRepository = orderRepository;
         }
 

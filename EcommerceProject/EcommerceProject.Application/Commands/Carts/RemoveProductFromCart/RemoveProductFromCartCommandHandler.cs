@@ -1,5 +1,4 @@
 ﻿using EcommerceProject.Domain.AggregatesRoot.CartAggregate;
-using EcommerceProject.Domain.AggregatesRoot.UserAggregate;
 using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Infrastructure.CQRS.Command;
 
@@ -8,12 +7,10 @@ namespace EcommerceProject.Application.Commands.Carts.RemoveProductFromCart
     public class RemoveProductFromCartCommandHandler : ICommandHandler<RemoveProductFromCartCommand, Guid>
     {
         private readonly ICartRepository _cartRepository;
-        private readonly IUserRepository _userRepository;
 
-        public RemoveProductFromCartCommandHandler(ICartRepository cartRepository, IUserRepository userRepository)
+        public RemoveProductFromCartCommandHandler(ICartRepository cartRepository)
         {
             _cartRepository = cartRepository;
-            _userRepository = userRepository;
         }
 
         public async Task<CommandResult<Guid>> Handle(RemoveProductFromCartCommand command, CancellationToken cancellationToken)
