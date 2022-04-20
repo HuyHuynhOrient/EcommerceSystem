@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Commands\Carts\PlaceOrder\**" />
+    <Compile Remove="Commands\Carts\RemoveProductFromCart\**" />
+    <EmbeddedResource Remove="Commands\Carts\PlaceOrder\**" />
+    <EmbeddedResource Remove="Commands\Carts\RemoveProductFromCart\**" />
+    <None Remove="Commands\Carts\PlaceOrder\**" />
+    <None Remove="Commands\Carts\RemoveProductFromCart\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.17.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="Moq" Version="4.17.2" />
@@ -25,11 +34,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\EcommerceProject.Application\EcommerceProject.Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Commands\Carts\RemoveProductFromCart\" />
-    <Folder Include="Commands\Carts\PlaceOrder\" />
   </ItemGroup>
 
 </Project>

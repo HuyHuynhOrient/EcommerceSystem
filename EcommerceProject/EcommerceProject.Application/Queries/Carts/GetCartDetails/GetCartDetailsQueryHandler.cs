@@ -23,7 +23,7 @@ namespace EcommerceProject.Application.Queries.Carts.GetCartDetails
 
             var spec = new SpecificationBase<Cart>(x => x.UserId == query.UserId);
             var cart = await _cartRepository.FindOneAsync(spec, cancellationToken);
-            if (cart is null) throw new Exception("Each customer must has an cart. Something is broken.");
+            if (cart is null) throw new CustomerMustHaveOnlyOneCartException();
 
             return cart;
         }

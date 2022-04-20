@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EcommerceProject.Application.Test.Commands.Carts.AddProductToCart
+namespace EcommerceProject.Application.Test.Commands.Carts
 {
     public class AddProductToCartCommandHandlerTest
     {
@@ -26,11 +26,10 @@ namespace EcommerceProject.Application.Test.Commands.Carts.AddProductToCart
         };
 
         [Fact]
-        public async Task GivenACart_WhenAddingProductToCart_ThenItShouldBeReturnSuccess()
+        public async Task GivenACart_WhenAddingProductToCart_ThenItShouldBeReturnCommandResultSuccess()
         {
-            var cart = new Cart(command.UserId);
-            var product = new Product("Macbook", MoneyValue.Of(100, "USA"), "VietNam", "VietNam", "This is a macbook.");
-            product.Id = command.ProductId;
+            var cart = GivenSampleCart();
+            var product = GivenSampleProduct();
             mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(cart);
             mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), default(CancellationToken)));
             mockProductRepository.Setup(p => p.FindOneAsync(It.IsAny<int>(), default(CancellationToken))).ReturnsAsync(product);
@@ -42,10 +41,9 @@ namespace EcommerceProject.Application.Test.Commands.Carts.AddProductToCart
         }
 
         [Fact]
-        public async Task GivenACart_WhenAddingProductToNotExistCart_ThenItShouldBeReturnError()
+        public async Task GivenThatNoCartFoundByUserId_WhenAddingProductToCart_ThenItShouldReturnCommandResultError()
         {
-            var product = new Product("Macbook", MoneyValue.Of(100, "USA"), "VietNam", "VietNam", "This is a macbook.");
-            product.Id = command.ProductId;
+            var product = GivenSampleProduct();
             mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(() => null);
             mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), default(CancellationToken)));
             mockProductRepository.Setup(p => p.FindOneAsync(It.IsAny<int>(), default(CancellationToken))).ReturnsAsync(product);
@@ -58,9 +56,9 @@ namespace EcommerceProject.Application.Test.Commands.Carts.AddProductToCart
         }
 
         [Fact]
-        public async Task GivenACart_WhenAddingNotExistProductToCart_ThenItShouldBeReturnErrror()
+        public async Task GivenThatNoProductFoundByProductId_WhenAddingProductToCart_ThenItShouldReturnCommandResultError()
         {
-            var cart = new Cart(command.UserId);
+            var cart = GivenSampleCart();
             mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(cart);
             mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), default(CancellationToken)));
             mockProductRepository.Setup(p => p.FindOneAsync(It.IsAny<int>(), default(CancellationToken))).ReturnsAsync(() => null);
@@ -70,6 +68,30 @@ namespace EcommerceProject.Application.Test.Commands.Carts.AddProductToCart
 
             string message = "Your product is not exist.";
             Assert.Equal(message, result.Message);
+        }
+
+        private Product GivenSampleProduct()
+        {
+            var name = "Macbook";
+            var price = MoneyValue.Of(500, "USA");
+            var tradeMark = "Apple";
+            var origin = "China";
+            var discription = "This is a macbook.";
+            var product = new Product(name, price, tradeMark, origin, discription);
+            product.Id = command.ProductId;
+            return product;
+        }
+
+        private Cart GivenSampleCart()
+        {
+            var cartProductId = 1;
+            var product = GivenSampleProduct();
+            var cartProduct = new CartProduct(command.ProductId, command.Quantity, product.Price);
+            cartProduct.Id = cartProductId;
+            var cart = new Cart(command.UserId);
+            cart.AddCartProduct(cartProduct);
+
+            return cart;
         }
     }
 }

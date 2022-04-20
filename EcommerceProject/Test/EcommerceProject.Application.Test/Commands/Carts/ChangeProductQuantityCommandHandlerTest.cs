@@ -12,12 +12,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EcommerceProject.Application.Test.Commands.Carts.ChangeProductQuantity
+namespace EcommerceProject.Application.Test.Commands.Carts
 {
     public class ChangeProductQuantityCommandHandlerTest
     {
-        private readonly Mock<ICartRepository> mockCartRepository;
-        private readonly Mock<IProductRepository> mockProductRepository;
+        private readonly Mock<ICartRepository> mockCartRepository = new Mock<ICartRepository>();
+        private readonly Mock<IProductRepository> mockProductRepository = new Mock<IProductRepository>();
         private readonly ChangeProductQuantityCommand command = new ChangeProductQuantityCommand()
         {
             UserId = Guid.NewGuid(),
@@ -27,14 +27,10 @@ namespace EcommerceProject.Application.Test.Commands.Carts.ChangeProductQuantity
         };
 
         [Fact]
-        public async Task GivenACart_WhenChangingProductQuantityToCart_ThenItShouldBeSuccess()
+        public async Task GivenACart_WhenChangingProductQuantityToCart_ThenItShouldReturnCommandResultSuccess()
         {
-            var product = new Product("Macbook", MoneyValue.Of(100, "USA"), "Apple", "China", "This is a macbook.");
-            product.Id = command.ProductId;
-            var cartProduct = new CartProduct(command.ProductId, command.Quantity, product.Price);
-            var cart = new Cart(command.UserId);
-            cart.AddCartProduct(cartProduct);
-
+            var product = GivenSampleProduct();
+            var cart = GivenSampleCart();
             mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(cart);
             mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), default(CancellationToken)));
             mockProductRepository.Setup(p => p.FindOneAsync(It.IsAny<int>(), default(CancellationToken))).ReturnsAsync(product);
@@ -46,9 +42,9 @@ namespace EcommerceProject.Application.Test.Commands.Carts.ChangeProductQuantity
         }
 
         [Fact]
-        public async Task GivenACart_WhenChangingProductQuantityToNotExistCart_ThenItShouldBeError()
+        public async Task GivenThatNoCartFoundByUserId_WhenChangingProductQuantity_ThenItShouldReturnCommandResultError()
         {
-            var product = new Product("Macbook", MoneyValue.Of(100, "USA"), "Apple", "China", "This is a macbook.");
+            var product = GivenSampleProduct();
             mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(() => null);
             mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), default(CancellationToken)));
             mockProductRepository.Setup(p => p.FindOneAsync(It.IsAny<int>(), default(CancellationToken))).ReturnsAsync(product);
@@ -61,9 +57,9 @@ namespace EcommerceProject.Application.Test.Commands.Carts.ChangeProductQuantity
         }
 
         [Fact]
-        public async Task GivenACart_WhenChagingProductQuantityFromCartButProductIdIsWrong_ThenItShouldBeError()
+        public async Task GivenThatNoProductFoundByProductId_WhenChagingProductQuantity_ThenItShouldReturnCommandResultError()
         {
-            var cart = new Cart(command.UserId);
+            var cart = GivenSampleCart();
             mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(cart);
             mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), default(CancellationToken)));
             mockProductRepository.Setup(p => p.FindOneAsync(It.IsAny<int>(), default(CancellationToken))).ReturnsAsync(() => null);
@@ -73,6 +69,28 @@ namespace EcommerceProject.Application.Test.Commands.Carts.ChangeProductQuantity
 
             string message = "Your product is not exist.";
             Assert.Equal(message, result.Message);
+        }
+
+        private Product GivenSampleProduct()
+        {
+            var name = "Macbook";
+            var price = MoneyValue.Of(500, "USA");
+            var tradeMark = "Apple";
+            var origin = "China";
+            var discription = "This is a macbook.";
+            var product = new Product(name, price, tradeMark, origin, discription);
+            product.Id = command.ProductId;
+            return product;
+        }
+        private Cart GivenSampleCart()
+        {
+            var product = GivenSampleProduct();
+            var cartProduct = new CartProduct(command.ProductId, command.Quantity, product.Price);
+            cartProduct.Id = command.CartProductId;
+            var cart = new Cart(command.UserId);
+            cart.AddCartProduct(cartProduct);
+
+            return cart;
         }
     }
 }
