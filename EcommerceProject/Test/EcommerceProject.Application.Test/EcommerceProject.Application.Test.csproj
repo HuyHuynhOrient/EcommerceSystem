@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Carts\ChangeProductQuantity\" />
     <Folder Include="Commands\Carts\RemoveProductFromCart\" />
     <Folder Include="Commands\Carts\PlaceOrder\" />
   </ItemGroup>

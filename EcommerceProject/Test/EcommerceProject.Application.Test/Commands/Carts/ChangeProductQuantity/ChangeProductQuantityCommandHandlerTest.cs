@@ -1,4 +1,4 @@
-﻿using EcommerceProject.Application.Commands.Carts.AddProductToCart;
+﻿using EcommerceProject.Application.Commands.Carts.ChangeProductQuantity;
 using EcommerceProject.Domain.AggregatesRoot.CartAggregate;
 using EcommerceProject.Domain.AggregatesRoot.ProductAggregate;
 using EcommerceProject.Domain.SeedWork;
@@ -12,29 +12,33 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EcommerceProject.Application.Test.Commands.Carts.AddProductToCart
+namespace EcommerceProject.Application.Test.Commands.Carts.ChangeProductQuantity
 {
-    public class AddProductToCartCommandHandlerTest
+    public class ChangeProductQuantityCommandHandlerTest
     {
-        private Mock<ICartRepository> mockCartRepository = new Mock<ICartRepository>();
-        private Mock<IProductRepository> mockProductRepository = new Mock<IProductRepository>();
-        private AddProductToCartCommand command = new AddProductToCartCommand()
+        private readonly Mock<ICartRepository> mockCartRepository;
+        private readonly Mock<IProductRepository> mockProductRepository;
+        private readonly ChangeProductQuantityCommand command = new ChangeProductQuantityCommand()
         {
-            ProductId = 1,
-            Quantity = 1,
             UserId = Guid.NewGuid(),
+            ProductId = 1,
+            CartProductId = 1,
+            Quantity = 3,
         };
 
         [Fact]
-        public async Task GivenACart_WhenAddingProductToCart_ThenItShouldBeReturnSuccess()
+        public async Task GivenACart_WhenChangingProductQuantityToCart_ThenItShouldBeSuccess()
         {
-            var cart = new Cart(command.UserId);
-            var product = new Product("Macbook", MoneyValue.Of(100, "USA"), "VietNam", "VietNam", "This is a macbook.");
+            var product = new Product("Macbook", MoneyValue.Of(100, "USA"), "Apple", "China", "This is a macbook.");
             product.Id = command.ProductId;
+            var cartProduct = new CartProduct(command.ProductId, command.Quantity, product.Price);
+            var cart = new Cart(command.UserId);
+            cart.AddCartProduct(cartProduct);
+
             mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(cart);
             mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), default(CancellationToken)));
             mockProductRepository.Setup(p => p.FindOneAsync(It.IsAny<int>(), default(CancellationToken))).ReturnsAsync(product);
-            var handler = new AddProductToCartCommandHandler(mockCartRepository.Object, mockProductRepository.Object);
+            var handler = new ChangeProductQuantityCommandHandler(mockCartRepository.Object, mockProductRepository.Object);
 
             var result = await handler.Handle(command, default(CancellationToken));
 
@@ -42,29 +46,28 @@ namespace EcommerceProject.Application.Test.Commands.Carts.AddProductToCart
         }
 
         [Fact]
-        public async Task GivenACart_WhenAddingProductToNotExistCart_ThenItShouldBeReturnError()
+        public async Task GivenACart_WhenChangingProductQuantityToNotExistCart_ThenItShouldBeError()
         {
-            var product = new Product("Macbook", MoneyValue.Of(100, "USA"), "VietNam", "VietNam", "This is a macbook.");
-            product.Id = command.ProductId;
+            var product = new Product("Macbook", MoneyValue.Of(100, "USA"), "Apple", "China", "This is a macbook.");
             mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(() => null);
             mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), default(CancellationToken)));
             mockProductRepository.Setup(p => p.FindOneAsync(It.IsAny<int>(), default(CancellationToken))).ReturnsAsync(product);
-            var handler = new AddProductToCartCommandHandler(mockCartRepository.Object, mockProductRepository.Object);
+            var handler = new ChangeProductQuantityCommandHandler(mockCartRepository.Object, mockProductRepository.Object);
 
             var result = await handler.Handle(command, default(CancellationToken));
 
-            string message = "Do not find a cart with customer id.";
-            Assert.Equal(message, result.Message);
+            string messsage = "Do not find a cart with customer id.";
+            Assert.Equal(messsage, result.Message);
         }
 
         [Fact]
-        public async Task GivenACart_WhenAddingNotExistProductToCart_ThenItShouldBeReturnErrror()
+        public async Task GivenACart_WhenChagingProductQuantityFromCartButProductIdIsWrong_ThenItShouldBeError()
         {
             var cart = new Cart(command.UserId);
             mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(cart);
             mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), default(CancellationToken)));
             mockProductRepository.Setup(p => p.FindOneAsync(It.IsAny<int>(), default(CancellationToken))).ReturnsAsync(() => null);
-            var handler = new AddProductToCartCommandHandler(mockCartRepository.Object, mockProductRepository.Object);
+            var handler = new ChangeProductQuantityCommandHandler(mockCartRepository.Object, mockProductRepository.Object);
 
             var result = await handler.Handle(command, default(CancellationToken));
 
