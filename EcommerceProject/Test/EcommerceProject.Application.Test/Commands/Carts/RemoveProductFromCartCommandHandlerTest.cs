@@ -4,9 +4,6 @@ using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Domain.SharedKermel;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -26,11 +23,11 @@ namespace EcommerceProject.Application.Test.Commands.Carts
         public async Task GetACart_WhenRemovingProductFromCart_ThenItShouldReturnCommandResultSuccess()
         {
             var cart = GivenSampleCart();
-            mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(cart);
-            mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), default(CancellationToken)));
+            mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), It.IsAny<CancellationToken>())).ReturnsAsync(cart);
+            mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
             var handler = new RemoveProductFromCartCommandHandler(mockCartRepository.Object);
 
-            var result = await handler.Handle(command, default(CancellationToken));
+            var result = await handler.Handle(command, CancellationToken.None);
 
             Assert.True(result.IsSuccess);
         }
@@ -38,15 +35,16 @@ namespace EcommerceProject.Application.Test.Commands.Carts
         [Fact]
         public async Task GivenThatNoCartFoundByUserId_WhenRemovingProductFromCart_ThenItShouldReturnCommandResultError()
         {
-            mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(() => null);
-            mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), default(CancellationToken)));
+            mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), It.IsAny<CancellationToken>())).ReturnsAsync(() => null);
+            mockCartRepository.Setup(p => p.SaveAsync(It.IsAny<Cart>(), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
             var handler = new RemoveProductFromCartCommandHandler(mockCartRepository.Object);
 
-            var result = await handler.Handle(command, default(CancellationToken));
+            var result = await handler.Handle(command, CancellationToken.None);
 
             string message = "Do not find a cart with customer id.";
             Assert.Equal(message, result.Message);
         }
+
         private Cart GivenSampleCart()
         {
             var productId = 1;

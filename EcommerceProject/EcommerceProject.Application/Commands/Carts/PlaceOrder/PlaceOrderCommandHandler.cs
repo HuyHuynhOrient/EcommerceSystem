@@ -21,7 +21,7 @@ namespace EcommerceProject.Application.Commands.Carts.PlaceOrder
         {
             var spec = new SpecificationBase<Cart>(x => x.UserId == command.UserId);
             var cart = await _cartRepository.FindOneAsync(spec, cancellationToken);
-            if (cart == null) return CommandResult<int>.Error("Do not find a cart with customer id.");
+            if (cart == null) return CommandResult.Error("Do not find a cart with customer id.");
 
             var orderProducts = new List<OrderProduct>();
             var cartProducts = cart.CartProducts;

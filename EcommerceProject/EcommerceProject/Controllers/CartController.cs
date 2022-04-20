@@ -30,7 +30,7 @@ namespace EcommerceProject.API.Controllers
         public async Task<IActionResult> GetCartDetails([FromRoute] Guid customerId
                                                 ,CancellationToken cancellationToken)
         {
-            var query = new GetCartDetailsQuery 
+            var query = new GetCartDetailsQuery
             {
                 UserId = customerId
             };

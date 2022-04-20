@@ -6,9 +6,6 @@ using EcommerceProject.Domain.SeedWork;
 using EcommerceProject.Domain.SharedKermel;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -29,11 +26,11 @@ namespace EcommerceProject.Application.Test.Queries.Carts
         {
             var user = GivenSampleUser();
             var cart = GivenSampleCart();
-            mockUserRepository.Setup(p => p.FindOneAsync(It.IsAny<Guid>(), default(CancellationToken))).ReturnsAsync(user);
-            mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(cart);
+            mockUserRepository.Setup(p => p.FindOneAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>())).ReturnsAsync(user);
+            mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), It.IsAny<CancellationToken>())).ReturnsAsync(cart);
             var handler = new GetCartDetailsQueryHandler(mockCartRepository.Object, mockUserRepository.Object);
 
-            var result = await handler.Handle(query, default(CancellationToken));
+            var result = await handler.Handle(query, CancellationToken.None);
 
             Assert.Equal(cart.Value, result.Value);
             Assert.Equal(cart.CartProducts[0].ProductId, result.CartProducts[0].ProductId);
@@ -45,11 +42,11 @@ namespace EcommerceProject.Application.Test.Queries.Carts
         public async Task GivenThatNoCustomerFound_WhenGettingCartDetails_ThenItShouldBeReturnNull()
         {
             var cart = GivenSampleCart();
-            mockUserRepository.Setup(p => p.FindOneAsync(It.IsAny<Guid>(), default(CancellationToken))).ReturnsAsync(() => null);
-            mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(cart);
+            mockUserRepository.Setup(p => p.FindOneAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>())).ReturnsAsync(() => null);
+            mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), It.IsAny<CancellationToken>())).ReturnsAsync(cart);
             var handler = new GetCartDetailsQueryHandler(mockCartRepository.Object, mockUserRepository.Object);
 
-            var result = await handler.Handle(query, default(CancellationToken));
+            var result = await handler.Handle(query, CancellationToken.None);
 
             Assert.Null(result);
         }
@@ -58,11 +55,11 @@ namespace EcommerceProject.Application.Test.Queries.Carts
         public async Task GivenThatCustomerDoesNotExistAnyCart_WhenGettingCartDetails_ThenItShouldThrowCustomerMustHaveOnlyOneCartException()
         {
             var user = GivenSampleUser();
-            mockUserRepository.Setup(p => p.FindOneAsync(It.IsAny<Guid>(), default(CancellationToken))).ReturnsAsync(user);
-            mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), default(CancellationToken))).ReturnsAsync(() => null);
+            mockUserRepository.Setup(p => p.FindOneAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>())).ReturnsAsync(user);
+            mockCartRepository.Setup(p => p.FindOneAsync(It.IsAny<SpecificationBase<Cart>>(), It.IsAny<CancellationToken>())).ReturnsAsync(() => null);
             var handler = new GetCartDetailsQueryHandler(mockCartRepository.Object, mockUserRepository.Object);
 
-            var exception = await Assert.ThrowsAsync<CustomerMustHaveOnlyOneCartException>(() => handler.Handle(query, default(CancellationToken)));
+            var exception = await Assert.ThrowsAsync<CustomerMustHaveOnlyOneCartException>(() => handler.Handle(query, CancellationToken.None));
 
             string message = "Each customer must has an cart. Something is broken.";
             Assert.Equal(message, exception.Message);
