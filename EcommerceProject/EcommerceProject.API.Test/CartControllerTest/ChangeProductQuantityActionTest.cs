@@ -1,8 +1,6 @@
 ﻿using EcommerceProject.API.Controllers;
 using EcommerceProject.API.Dtos;
-using EcommerceProject.Application.Commands.Carts.AddProductToCart;
 using EcommerceProject.Application.Commands.Carts.ChangeProductQuantity;
-using EcommerceProject.Domain.AggregatesRoot.OrderAggregate;
 using EcommerceProject.Infrastructure.CQRS.Command;
 using EcommerceProject.Infrastructure.CQRS.Queries;
 using Microsoft.AspNetCore.Mvc;
