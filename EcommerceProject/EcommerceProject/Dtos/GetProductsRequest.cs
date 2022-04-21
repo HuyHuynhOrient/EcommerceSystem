@@ -4,11 +4,11 @@ namespace EcommerceProject.API.Dtos
 {
     public class GetProductsRequest
     {
-        public string Name { get; init; }
-        public string TradeMark { get; init; }
-        public string Origin { get; init; }
-        public string Currency { get; init; }
-        public decimal MaxValue { get; init; }
-        public decimal MinValue { get; init; }
+        public string Name { get; set; }
+        public string TradeMark { get; set; }
+        public string Origin { get; set; }
+        public string Currency { get; set; }
+        public decimal MaxValue { get; set; }
+        public decimal MinValue { get; set; }
     }
 }
