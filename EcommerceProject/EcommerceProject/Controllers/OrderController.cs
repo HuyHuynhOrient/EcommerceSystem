@@ -25,7 +25,7 @@ namespace EcommerceProject.API.Controllers
 
         [HttpGet]
         [Route("get-all")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetOrders([FromQuery] GetOrdersQuery request, CancellationToken cancellationToken)
         {
             var query = new GetOrdersQuery { UserId = request.UserId };
@@ -35,7 +35,7 @@ namespace EcommerceProject.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Customer")]
+        //[Authorize(Roles = "Customer")]
         public async Task<IActionResult> GetCustomerOrders([FromQuery] GetCustomerOrdersQuery request, CancellationToken cancellationToken)
         {
             var query = new GetCustomerOrdersQuery { UserId = request.UserId };
@@ -46,7 +46,7 @@ namespace EcommerceProject.API.Controllers
         
         [HttpGet]
         [Route("{orderId}")]
-        [Authorize(Roles = "Admin,Customer")]
+        //[Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> GetOrderDetails([FromQuery] Guid customerId
                                                 ,[FromRoute] int orderId
                                                 ,CancellationToken cancellationToken)
@@ -64,7 +64,7 @@ namespace EcommerceProject.API.Controllers
 
         [HttpPut]
         [Route("{orderId}/change-orderstatus")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> ChangeOrderStatus([FromRoute] int orderId
                                                 ,[FromBody] ChangeOrderStatusRequest request
                                                 ,CancellationToken cancellationToken)

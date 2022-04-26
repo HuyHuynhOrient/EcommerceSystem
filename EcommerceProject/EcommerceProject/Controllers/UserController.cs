@@ -24,7 +24,7 @@ namespace EcommerceProject.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUsers(CancellationToken cancellationToken)
         {
             var query = new GetUsersQuery();
@@ -35,7 +35,7 @@ namespace EcommerceProject.API.Controllers
 
         [HttpGet]
         [Route("{userId}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUserDetails([FromRoute] Guid userId, CancellationToken cancellationToken)
         {
             var query = new GetUserDetailsQuery() { UserId = userId };

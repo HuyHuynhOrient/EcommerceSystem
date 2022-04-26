@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using EcommerceProject.API;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Hosting;
 
-namespace EcommerceSystem.Spec.Hooks
+namespace EcommerceProject.Specflow.Hooks
 {
     [Binding]
     public sealed class Hooks
@@ -11,7 +12,7 @@ namespace EcommerceSystem.Spec.Hooks
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
-            _host = WebApplication.CreateBuilder().Build();
+            _host = Program.CreateHostBuilder().Build();
 
             _host.Start();
         }

@@ -18,14 +18,9 @@ namespace NetProject.Infrastructure.Domain
     {
         public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContextPool<AppDbContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
             {
-                var connection = configuration.GetSection("Database:ConnectionString").Value;
-                options.UseSqlServer(connection,
-                   x =>
-                   {
-                       x.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
-                   });
+                options.UseSqlServer(configuration.GetConnectionString("AppconnectionString"));
             });
             services.AddScoped<IUnitOfWork>(sp => new UnitOfWork((sp.GetRequiredService<AppDbContext>())));
             services.AddScoped<IUserRepository, UserRepository>();
