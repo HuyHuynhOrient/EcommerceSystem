@@ -1,49 +1,45 @@
 ﻿using EcommerceProject.Infrastructure.Database;
+using EcommerceProject.Specflow.Core.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-
-namespace EcommerceProject.Specflow
+namespace EcommerceProject.Specflow.Core
 {
-    public class CustomWebApplicationFactory<TStartup>
-    : WebApplicationFactory<TStartup> where TStartup : class
+    internal class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.ConfigureServices(services =>
             {
-                var descriptor = services.SingleOrDefault(
-                    d => d.ServiceType ==
-                        typeof(DbContextOptions<AppDbContext>));
+                var description = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
 
-                services.Remove(descriptor);
+                services.Remove(description);
 
                 services.AddDbContext<AppDbContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
                 });
 
-                var sp = services.BuildServiceProvider();
-
-                using (var scope = sp.CreateScope())
+                var serviceProvider = services.BuildServiceProvider();
+                using (var scope = serviceProvider.CreateScope())
                 {
-                    var scopedServices = scope.ServiceProvider;
-                    var db = scopedServices.GetRequiredService<AppDbContext>();
-                    var logger = scopedServices
-                        .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
+                    var scopeServices = scope.ServiceProvider;
+                    var db = scopeServices.GetRequiredService<AppDbContext>();
+                    var logger = scopeServices.GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
+
 
                     db.Database.EnsureCreated();
 
                     try
                     {
-                        //Utilities.InitializeDbForTests(db);
+                        Utilities.InittiallizeDbForTests(db);
                     }
                     catch (Exception ex)
                     {
-                        logger.LogError(ex, "An error occurred seeding the " +
+                        logger.LogError(ex, "An error occured seeding the" +
                             "database with test messages. Error: {Message}", ex.Message);
                     }
                 }

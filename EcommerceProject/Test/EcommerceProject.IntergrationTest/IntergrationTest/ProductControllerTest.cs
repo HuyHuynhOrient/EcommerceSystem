@@ -1,4 +1,6 @@
 ﻿using EcommerceProject.API;
+using EcommerceProject.IntergrationTest.Helpers;
+using EcommerceProject.IntergrationTest.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System;
@@ -19,17 +21,22 @@ namespace EcommerceProject.IntergrationTest.IntergrationTest
         public ProductControllerTest(CustomWebApplicationFactory<Startup> factory)
         {
             _factory = factory;
-            _client = factory.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
+            _client = factory.CreateClient();
         }
 
         [Fact]
-        public async Task Can_get_product()
+        public async Task GivenInformation_WhenGettingAllProduct_ThenItShoudBeReturnSeedingProduct()
         {
-            var response = await _client.GetAsync("/api/products");
+            var seedingProduct = Utilities.GetSeedingProduct();
 
-            var Product = JsonConvert.DeserializeObject<List<Product>>(response.Content.ToString());
+            HttpResponseMessage response = await _client.GetAsync("/api/products");
             response.EnsureSuccessStatusCode();
+            var result = response.Content.ReadAsStringAsync().Result;
+            var products = JsonConvert.DeserializeObject<List<Product>>(result);
+
+            Assert.Equal("OK", response.StatusCode.ToString());
             Assert.Equal("application/json; charset=utf-8", response.Content.Headers.ContentType.ToString());
+            Assert.Equal(seedingProduct.Count, products.Count);
         }
     }
 }

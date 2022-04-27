@@ -13,8 +13,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceProject.IntergrationTest
 {
-    public class CustomWebApplicationFactory<TStartup>
-        : WebApplicationFactory<TStartup> where TStartup : class
+    public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
