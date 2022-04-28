@@ -56,9 +56,7 @@ Scenario: UpdateProduct
 	|	Id	| Name      | Value | Currency | TradeMark	| Origin	| Discription				|
 	|	1	| Product 1 | 200   | USA      | China		| China		| This is a changed product	|
 	Then In the product repository the data of the product is 1 is changed
-	|	Id	| Name      | Value | Currency | TradeMark	| Origin	| Discription				|
-	|	1	| Product 1 | 200   | USA      | China		| China		| This is a changed product	|
-	|	2	| Product 2 | 200   | USA      | Viet Nam	| China		| This is a product 2		|
+
 
 @deleteProduct
 Scenario: DeleteProduct

@@ -474,32 +474,8 @@ this.ScenarioInitialize(scenarioInfo);
 #line 55
  testRunner.When("User wants to update product with id 1 according to the following dataset", ((string)(null)), table9, "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Id",
-                            "Name",
-                            "Value",
-                            "Currency",
-                            "TradeMark",
-                            "Origin",
-                            "Discription"});
-                table10.AddRow(new string[] {
-                            "1",
-                            "Product 1",
-                            "200",
-                            "USA",
-                            "China",
-                            "China",
-                            "This is a changed product"});
-                table10.AddRow(new string[] {
-                            "2",
-                            "Product 2",
-                            "200",
-                            "USA",
-                            "Viet Nam",
-                            "China",
-                            "This is a product 2"});
 #line 58
- testRunner.Then("In the product repository the data of the product is 1 is changed", ((string)(null)), table10, "Then ");
+ testRunner.Then("In the product repository the data of the product is 1 is changed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -515,7 +491,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "deleteProduct"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DeleteProduct", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 64
+#line 62
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -535,7 +511,7 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id",
                             "Name",
                             "Value",
@@ -543,7 +519,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "TradeMark",
                             "Origin",
                             "Discription"});
-                table11.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "1",
                             "Product 1",
                             "100",
@@ -551,7 +527,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "Viet Nam",
                             "Viet Nam",
                             "This is a product 1"});
-                table11.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "2",
                             "Product 2",
                             "200",
@@ -559,13 +535,13 @@ this.ScenarioInitialize(scenarioInfo);
                             "Viet Nam",
                             "China",
                             "This is a product 2"});
-#line 65
- testRunner.Given("The product repository already exists the following products", ((string)(null)), table11, "Given ");
+#line 63
+ testRunner.Given("The product repository already exists the following products", ((string)(null)), table10, "Given ");
 #line hidden
-#line 69
+#line 67
  testRunner.When("User wants to delete product with id 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 70
+#line 68
  testRunner.Then("There is no product with id 2 and the return status is NotFound", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

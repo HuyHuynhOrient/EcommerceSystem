@@ -148,6 +148,7 @@ namespace EcommerceProject.Specflow.StepDefinitions
         [When(@"User wants to update product with id (.*) according to the following dataset")]
         public async Task WhenUserWantsToUpdateProductWithIdAccordingToTheFollowingDataset(int productId, Table table)
         {
+            _table = table;
             var row = table.Rows.First();
             var request = new UpdateProductRequest()
             {
@@ -166,9 +167,9 @@ namespace EcommerceProject.Specflow.StepDefinitions
         }
 
         [Then(@"In the product repository the data of the product is (.*) is changed")]
-        public async Task ThenInTheProductRepositoryTheDataOfTheProductIsIsChanged(int productId, Table table)
+        public async Task ThenInTheProductRepositoryTheDataOfTheProductIsIsChanged(int productId)
         {
-            var row = table.Rows.First();
+            var row = _table.Rows.First();
             var expectedProduct = new Product(row[1], new MoneyValue(Convert.ToDecimal(row[2]), row[3]), row[4], row[5], row[6]);
 
             var response = await _client.GetAsync($"/api/products/{productId}");
