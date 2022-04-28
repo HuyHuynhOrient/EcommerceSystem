@@ -85,7 +85,7 @@ namespace EcommerceProject.API.Controllers
             {
                 ProductId = productId,
                 Name = request.Name,
-                Price = request.Price,
+                Price = MoneyValue.Of(request.Value, request.Currency),
                 TradeMark = request.TradeMark,
                 Origin = request.Origin,
                 Discription = request.Discription

@@ -19,9 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceProject.Domain.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceProject.API.Test", "Test\EcommerceProject.API.Test\EcommerceProject.API.Test.csproj", "{A14FEB4D-D7DC-46F8-BC62-C69314FCE516}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceProject.IntergrationTest", "Test\EcommerceProject.IntergrationTest\EcommerceProject.IntergrationTest.csproj", "{1F8A5899-F5D5-45DC-A49D-388A9FA40DBF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceProject.Specflow", "Test\EcommerceProject.Specflow\EcommerceProject.Specflow.csproj", "{A9341117-30A5-4554-9811-AD10E40347AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceProject.Specflow", "Test\EcommerceProject.Specflow\EcommerceProject.Specflow.csproj", "{A9341117-30A5-4554-9811-AD10E40347AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +55,6 @@ Global
 		{A14FEB4D-D7DC-46F8-BC62-C69314FCE516}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A14FEB4D-D7DC-46F8-BC62-C69314FCE516}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A14FEB4D-D7DC-46F8-BC62-C69314FCE516}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F8A5899-F5D5-45DC-A49D-388A9FA40DBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F8A5899-F5D5-45DC-A49D-388A9FA40DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F8A5899-F5D5-45DC-A49D-388A9FA40DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F8A5899-F5D5-45DC-A49D-388A9FA40DBF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9341117-30A5-4554-9811-AD10E40347AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A9341117-30A5-4554-9811-AD10E40347AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9341117-30A5-4554-9811-AD10E40347AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -73,7 +67,6 @@ Global
 		{261DFA0E-899E-4DE2-970B-E7CED7E6373B} = {577C0319-7D4E-418D-80EF-E62FDDE270D5}
 		{105A868B-BB46-404B-B5E2-5E761C429BF0} = {577C0319-7D4E-418D-80EF-E62FDDE270D5}
 		{A14FEB4D-D7DC-46F8-BC62-C69314FCE516} = {577C0319-7D4E-418D-80EF-E62FDDE270D5}
-		{1F8A5899-F5D5-45DC-A49D-388A9FA40DBF} = {577C0319-7D4E-418D-80EF-E62FDDE270D5}
 		{A9341117-30A5-4554-9811-AD10E40347AA} = {577C0319-7D4E-418D-80EF-E62FDDE270D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

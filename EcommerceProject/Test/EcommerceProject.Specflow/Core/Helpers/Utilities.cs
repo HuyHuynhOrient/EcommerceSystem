@@ -9,14 +9,14 @@ namespace EcommerceProject.Specflow.Core.Helpers
     {
         public static void InittiallizeDbForTests(AppDbContext db)
         {
-            db.Products.AddRange(GetSeedingProduct());
-            db.SaveChanges();
+            //db.Products.AddRange(GetSeedingProduct());
+            //db.SaveChanges();
         }
 
         public static void ReinitializeDbForTests(AppDbContext db)
         {
-            db.Products.RemoveRange(db.Products);
-            InittiallizeDbForTests(db);
+            //db.Products.RemoveRange(db.Products);
+            //InittiallizeDbForTests(db);
         }
 
         public static List<Role> GetSeedingRole()

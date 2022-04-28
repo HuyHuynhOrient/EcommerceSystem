@@ -14,8 +14,8 @@ namespace EcommerceProject.IntergrationTest.Helpers
     {
         public static void InittiallizeDbForTests(AppDbContext db)
         {
-            db.Products.AddRange(GetSeedingProduct());
-            db.SaveChanges();
+            //db.Products.AddRange(GetSeedingProduct());
+            //db.SaveChanges();
         }
 
         public static void ReinitializeDbForTests(AppDbContext db)

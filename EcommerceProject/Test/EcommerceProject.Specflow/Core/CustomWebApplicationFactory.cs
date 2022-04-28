@@ -3,6 +3,7 @@ using EcommerceProject.Specflow.Core.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -20,7 +21,8 @@ namespace EcommerceProject.Specflow.Core
 
                 services.AddDbContext<AppDbContext>(options =>
                 {
-                    options.UseInMemoryDatabase("InMemoryDbForTesting");
+                    options.UseInMemoryDatabase("InMemoryDbForTesting")
+                    .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning));
                 });
 
                 var serviceProvider = services.BuildServiceProvider();
@@ -30,18 +32,7 @@ namespace EcommerceProject.Specflow.Core
                     var db = scopeServices.GetRequiredService<AppDbContext>();
                     var logger = scopeServices.GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 
-
                     db.Database.EnsureCreated();
-
-                    try
-                    {
-                        Utilities.InittiallizeDbForTests(db);
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.LogError(ex, "An error occured seeding the" +
-                            "database with test messages. Error: {Message}", ex.Message);
-                    }
                 }
             });
         }
